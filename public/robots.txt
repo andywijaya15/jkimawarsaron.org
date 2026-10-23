@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /keystatic/
+
+Sitemap: https://jkimawarsaron.org/sitemap-index.xml

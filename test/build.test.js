@@ -15,6 +15,12 @@ assert(fs.existsSync(path.join(dist, 'admin/index.html')), 'dist/admin/index.htm
 assert(fs.existsSync(path.join(dist, 'admin/config.yml')), 'dist/admin/config.yml must exist for CMS');
 assert(fs.existsSync(path.join(dist, 'keystatic/index.html')), 'dist/keystatic/index.html must exist for Keystatic CMS');
 assert(fs.existsSync(path.join(dist, '.htaccess')), 'dist/.htaccess must exist for production Apache configuration');
+assert(fs.existsSync(path.join(dist, 'robots.txt')), 'dist/robots.txt must exist for SEO indexing');
+assert(fs.existsSync(path.join(dist, 'sitemap-index.xml')), 'dist/sitemap-index.xml must exist for SEO indexing');
+
+const robotsTxt = fs.readFileSync(path.join(dist, 'robots.txt'), 'utf-8');
+assert(robotsTxt.includes('Sitemap: https://jkimawarsaron.org/sitemap-index.xml'), 'robots.txt must point to sitemap-index.xml');
+assert(robotsTxt.includes('Disallow: /keystatic/'), 'robots.txt must disallow keystatic CMS');
 
 const adminHtml = fs.readFileSync(path.join(dist, 'admin/index.html'), 'utf-8');
 assert(adminHtml.includes('decap-cms'), 'admin/index.html should load Decap CMS script');
@@ -33,6 +39,15 @@ assert(indexHtml.includes('church-map'), 'index.html should contain church-map c
 assert(indexHtml.includes('leaflet'), 'index.html should load Leaflet library');
 assert(indexHtml.includes('https://maps.app.goo.gl/zfCuDaWoGZLhA4Jz9'), 'index.html should link to new Google Maps URL');
 assert(!indexHtml.includes('href="#"'), 'index.html must not contain dead href="#" links');
+assert(indexHtml.includes('rel="canonical"'), 'index.html must have canonical link');
+assert(indexHtml.includes('property="og:title"'), 'index.html must have og:title');
+assert(indexHtml.includes('property="og:image"'), 'index.html must have og:image');
+assert(indexHtml.includes('name="twitter:card"'), 'index.html must have twitter:card');
+assert(indexHtml.includes('name="robots" content="index, follow"'), 'index.html must have robots meta tag');
+assert(indexHtml.includes('application/ld+json'), 'index.html must include Schema.org JSON-LD');
+assert(indexHtml.includes('"@type":"Church"'), 'index.html must contain Church schema');
+assert(indexHtml.includes('id="main-content"'), 'index.html must have main landmark for accessibility');
+assert(indexHtml.includes('Lewati ke konten utama'), 'index.html must have skip link');
 
 const ourstoryHtml = fs.readFileSync(path.join(dist, 'ourstory/index.html'), 'utf-8');
 assert(ourstoryHtml.includes('object-position: center 45%'), 'ourstory should have framing object-position: center 45%');

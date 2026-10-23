@@ -6,13 +6,19 @@ interface Props {
   title?: string;
   description?: string;
   currentPage?: string;
+  image?: string;
 }
 
 const {
-  title = 'JKI MAWAR SARON',
+  title = 'JKI MAWAR SARON - Gereja Lokal di Semarang',
   description = 'Website Resmi JKI Mawar Saron Semarang. Gereja lokal yang ramah keluarga, berpusat pada Kristus dan melayani sesama.',
   currentPage = '',
+  image = '/assets/img/Background/gereja-jki-ms.jpg',
 } = Astro.props;
+
+const siteUrl = Astro.site ? Astro.site.href : 'https://jkimawarsaron.org';
+const canonicalURL = new URL(Astro.url.pathname, siteUrl).href;
+const ogImage = new URL(image, siteUrl).href;
 ---
 
 <!DOCTYPE html>
@@ -22,8 +28,73 @@ const {
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content={description} />
   <meta name="author" content="JKI Mawar Saron" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:site_name" content="JKI Mawar Saron Semarang" />
+  <meta property="og:locale" content="id_ID" />
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content={canonicalURL} />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+
+  <!-- Regional & Geo Meta Tags -->
+  <meta name="geo.region" content="ID-JT" />
+  <meta name="geo.placename" content="Semarang" />
+  <meta name="geo.position" content="-7.0315;110.4287" />
+  <meta name="ICBM" content="-7.0315, 110.4287" />
+
+  <!-- Sitemap link -->
+  <link rel="sitemap" href="/sitemap-index.xml" />
+
   <title>{title}</title>
   <link rel="icon" type="image/png" href="/assets/Icons/LOGO JKI MS.png" />
+
+  <!-- Structured Data (JSON-LD) for Church / Place of Worship -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Church",
+    "name": "JKI Mawar Saron Semarang",
+    "alternateName": "JKI Mawar Saron",
+    "url": "https://jkimawarsaron.org",
+    "logo": "https://jkimawarsaron.org/assets/Icons/LOGO%20JKI%20MS.png",
+    "image": ogImage,
+    "description": description,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Jl. Jangli Raya No. 37",
+      "addressLocality": "Semarang",
+      "addressRegion": "Jawa Tengah",
+      "postalCode": "50274",
+      "addressCountry": "ID"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": -7.0315,
+      "longitude": 110.4287
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Sunday",
+        "opens": "09:00",
+        "closes": "13:00"
+      }
+    ],
+    "sameAs": [
+      "https://www.youtube.com/@jkimawarsaronsemarang",
+      "https://www.instagram.com/jkimawarsaron"
+    ]
+  })} />
 
   <!-- Font Awesome icons (deferred to prevent render-blocking) -->
   <script is:inline defer src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -40,9 +111,13 @@ const {
 </head>
 
 <body id="page-top">
+  <a href="#main-content" class="visually-hidden-focusable btn btn-primary position-fixed top-0 start-0 m-2" style="z-index: 9999;">
+    Lewati ke konten utama
+  </a>
+
   <Navbar currentPage={currentPage} />
 
-  <main id="main-content">
+  <main id="main-content" tabindex="-1">
     <slot />
   </main>
 
