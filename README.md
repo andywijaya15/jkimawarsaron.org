@@ -49,12 +49,13 @@ Anda **tidak perlu lagi mengunggah file manual ke File Manager Hostinger**. Semu
 
 ---
 
-## Perintah Pengembangan Lokal
+## Perintah Pengembangan Lokal & CMS
 
 | Perintah | Fungsi |
 |---|---|
 | `npm run dev` | Menjalankan web development server di `http://localhost:4321` |
-| `npm run build` | Menghasilkan static HTML di folder `dist/` |
+| Buka `/keystatic` | Panel Admin modern **Keystatic** di `http://localhost:4321/keystatic` (langsung baca/tulis konten di komputer lokal tanpa perlu login/internet) |
+| `npm run build` | Menghasilkan static HTML di folder `dist/` untuk Hostinger |
 | `npm test` | Menjalankan pengujian integritas rute dan aset statis |
 
 ---
