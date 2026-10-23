@@ -1,7 +1,7 @@
 # Decap CMS Configuration - JKI Mawar Saron Semarang
 backend:
   name: github
-  repo: ndik/jkimawarsaron.org # Ganti dengan username/repo-anda di GitHub
+  repo: andywijaya15/jkimawarsaron.org
   branch: main
   base_url: https://api.github.com
 

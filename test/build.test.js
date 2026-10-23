@@ -18,6 +18,7 @@ const adminHtml = fs.readFileSync(path.join(dist, 'admin/index.html'), 'utf-8');
 assert(adminHtml.includes('decap-cms'), 'admin/index.html should load Decap CMS script');
 
 const adminConfig = fs.readFileSync(path.join(dist, 'admin/config.yml'), 'utf-8');
+assert(adminConfig.includes('repo: andywijaya15/jkimawarsaron.org'), 'admin/config.yml must specify correct GitHub repo');
 assert(adminConfig.includes('collections:'), 'admin/config.yml must define CMS collections');
 assert(adminConfig.includes('name: "events"'), 'admin/config.yml must contain events collection');
 assert(adminConfig.includes('name: "bulletin"'), 'admin/config.yml must contain bulletin collection');

@@ -19,27 +19,26 @@ Workflow `.github/workflows/deploy.yml` akan secara otomatis meng-compile websit
 
 ### Langkah 2: Masukkan Secrets ke GitHub Repository
 
-1. Buka repositori proyek ini di **GitHub**.
+1. Buka repositori proyek ini di **GitHub**: `https://github.com/andywijaya15/jkimawarsaron.org/settings/secrets/actions`
 2. Masuk ke tab **Settings** > **Secrets and variables** > **Actions**.
 3. Klik tombol hijau **New repository secret**, lalu tambahkan 3 variabel berikut:
 
 | Name (Nama Secret) | Value (Isi Nilai) |
 |---|---|
-| `HOSTINGER_FTP_HOST` | Host FTP Anda (contoh: `ftp.jkimawarsaron.org` atau IP) |
-| `HOSTINGER_FTP_USER` | Username FTP dari hPanel |
-| `HOSTINGER_FTP_PASSWORD` | Password akun FTP Anda |
+| `HOSTINGER_FTP_HOST` | `ftp.jkimawarsaron.org` (atau `153.92.9.207`) |
+| `HOSTINGER_FTP_USER` | `u429389714.andy` |
+| `HOSTINGER_FTP_PASSWORD` | (Password akun FTP u429389714.andy dari hPanel) |
 
 ---
 
 ### Langkah 3: Mengatur Login Decap CMS (`/admin`)
 
-Untuk mengaktifkan login tim multimedia ke halaman `jkimawarsaron.org/admin`:
-1. Di `public/admin/config.yml`, ganti baris:
-   ```yaml
-   backend:
-     name: github
-     repo: username-anda/jkimawarsaron.org
-     branch: main
-   ```
+Konfigurasi backend di `public/admin/config.yml` sudah diarahkan ke:
+```yaml
+backend:
+  name: github
+  repo: andywijaya15/jkimawarsaron.org
+  branch: main
+```
 2. Tim admin bisa login menggunakan akun GitHub mereka yang memiliki akses ke repositori tersebut.
 3. Saat admin mengunggah flyer acara atau memperbarui buletin di `/admin` lalu klik **Publish**, GitHub Actions akan otomatis melakukan build dan website di Hostinger terbarui dalam waktu ~1 menit.
