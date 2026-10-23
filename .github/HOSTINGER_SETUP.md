@@ -10,10 +10,10 @@ Workflow `.github/workflows/deploy.yml` akan secara otomatis meng-compile websit
 2. Pilih website Anda (`jkimawarsaron.org`), lalu klik **Kelola / Manage**.
 3. Cari menu **Akun FTP** (FTP Accounts) di bilah pencarian atau bagian *Files*.
 4. Catat informasi berikut:
-   - **FTP IP / Host**: Contoh `ftp.jkimawarsaron.org` atau IP server.
-   - **Username FTP**: Contoh `u12345678` atau `admin@jkimawarsaron.org`.
-   - **Password FTP**: Jika lupa, Anda bisa klik *Ubah Password*.
-   - **Direktori**: Pastikan mengarah ke `public_html`.
+   - **FTP IP / Host**: Contoh `ftp.jkimawarsaron.org` atau IP server `153.92.9.207`.
+   - **Username FTP**: `u429389714.andy`.
+   - **Password FTP**: Password yang Anda buat.
+   - **Direktori**: Pastikan mengarah ke folder target, yaitu `/home/u429389714/domains/new.jkimawarsaron.org/public_html`.
 
 ---
 

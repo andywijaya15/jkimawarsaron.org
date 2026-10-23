@@ -2,8 +2,8 @@
 
 Website resmi jemaat JKI Mawar Saron Semarang dibangun menggunakan **Astro v7** (Static Site Generator) dengan sistem manajemen konten berbasis **Decap CMS** dan pipeline auto-deploy ke **Hostinger Shared Hosting** melalui **GitHub Actions**.
 
-- **URL Website:** [https://jkimawarsaron.org](https://jkimawarsaron.org)
-- **Panel Admin CMS:** [https://jkimawarsaron.org/admin](https://jkimawarsaron.org/admin)
+- **URL Website:** [https://new.jkimawarsaron.org](https://new.jkimawarsaron.org) (dan [https://jkimawarsaron.org](https://jkimawarsaron.org))
+- **Panel Admin CMS:** [https://new.jkimawarsaron.org/admin](https://new.jkimawarsaron.org/admin)
 - **Repositori:** `andywijaya15/jkimawarsaron.org`
 
 ---

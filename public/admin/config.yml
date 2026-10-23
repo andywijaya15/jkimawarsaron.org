@@ -11,8 +11,8 @@ public_folder: "/assets/img/uploads"
 
 # Lokalisasi & Identitas Web
 locale: "id"
-site_url: "https://jkimawarsaron.org"
-display_url: "https://jkimawarsaron.org"
+site_url: "https://new.jkimawarsaron.org"
+display_url: "https://new.jkimawarsaron.org"
 logo_url: "/assets/Icons/LOGO JKI MS.png"
 
 # Koleksi Konten Gereja
