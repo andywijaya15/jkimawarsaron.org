@@ -7,7 +7,7 @@ export default config({
         kind: 'cloud',
       },
   cloud: {
-    project: 'andywijaya15/jkimawarsaron',
+    project: 'jkims/jkimawarsaron-org',
   },
   collections: {
     events: collection({

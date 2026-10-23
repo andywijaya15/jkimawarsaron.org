@@ -16,6 +16,14 @@
   Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
 </IfModule>
 
+# Keystatic SPA Routing
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^keystatic(/.*)?$ keystatic/index.html [L,QSA]
+</IfModule>
+
 # Caching for Static Assets
 <IfModule mod_expires.c>
   ExpiresActive On

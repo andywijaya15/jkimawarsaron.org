@@ -13,6 +13,8 @@ assert(fs.existsSync(path.join(dist, 'shermon/index.html')), 'dist/shermon/index
 assert(fs.existsSync(path.join(dist, 'events/index.html')), 'dist/events/index.html must exist');
 assert(fs.existsSync(path.join(dist, 'admin/index.html')), 'dist/admin/index.html must exist for CMS');
 assert(fs.existsSync(path.join(dist, 'admin/config.yml')), 'dist/admin/config.yml must exist for CMS');
+assert(fs.existsSync(path.join(dist, 'keystatic/index.html')), 'dist/keystatic/index.html must exist for Keystatic CMS');
+assert(fs.existsSync(path.join(dist, '.htaccess')), 'dist/.htaccess must exist for production Apache configuration');
 
 const adminHtml = fs.readFileSync(path.join(dist, 'admin/index.html'), 'utf-8');
 assert(adminHtml.includes('decap-cms'), 'admin/index.html should load Decap CMS script');

@@ -1,0 +1,30 @@
+---
+import KeystaticApp from '../../components/KeystaticApp';
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return [
+    { params: { params: undefined } },
+  ];
+}
+---
+
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keystatic CMS - JKI Mawar Saron</title>
+  <link rel="icon" type="image/png" href="/assets/Icons/LOGO JKI MS.png" />
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <KeystaticApp client:only="react" />
+</body>
+</html>

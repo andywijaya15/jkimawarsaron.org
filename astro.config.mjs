@@ -12,6 +12,6 @@ if (isDev) {
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://new.jkimawarsaron.org',
+  site: 'https://jkimawarsaron.org',
   integrations,
 });
