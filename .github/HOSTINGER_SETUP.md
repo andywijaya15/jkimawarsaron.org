@@ -1,0 +1,45 @@
+# Panduan Menghubungkan GitHub ke Hostinger (Auto Deploy)
+
+Workflow `.github/workflows/deploy.yml` akan secara otomatis meng-compile website Astro dan mengunggahnya ke Hostinger setiap kali ada perubahan kode atau update konten/aset via Decap CMS (`/admin`).
+
+---
+
+### Langkah 1: Ambil Akses FTP dari Hostinger (hPanel)
+
+1. Masuk ke **hPanel Hostinger** (https://hpanel.hostinger.com).
+2. Pilih website Anda (`jkimawarsaron.org`), lalu klik **Kelola / Manage**.
+3. Cari menu **Akun FTP** (FTP Accounts) di bilah pencarian atau bagian *Files*.
+4. Catat informasi berikut:
+   - **FTP IP / Host**: Contoh `ftp.jkimawarsaron.org` atau IP server.
+   - **Username FTP**: Contoh `u12345678` atau `admin@jkimawarsaron.org`.
+   - **Password FTP**: Jika lupa, Anda bisa klik *Ubah Password*.
+   - **Direktori**: Pastikan mengarah ke `public_html`.
+
+---
+
+### Langkah 2: Masukkan Secrets ke GitHub Repository
+
+1. Buka repositori proyek ini di **GitHub**.
+2. Masuk ke tab **Settings** > **Secrets and variables** > **Actions**.
+3. Klik tombol hijau **New repository secret**, lalu tambahkan 3 variabel berikut:
+
+| Name (Nama Secret) | Value (Isi Nilai) |
+|---|---|
+| `HOSTINGER_FTP_HOST` | Host FTP Anda (contoh: `ftp.jkimawarsaron.org` atau IP) |
+| `HOSTINGER_FTP_USER` | Username FTP dari hPanel |
+| `HOSTINGER_FTP_PASSWORD` | Password akun FTP Anda |
+
+---
+
+### Langkah 3: Mengatur Login Decap CMS (`/admin`)
+
+Untuk mengaktifkan login tim multimedia ke halaman `jkimawarsaron.org/admin`:
+1. Di `public/admin/config.yml`, ganti baris:
+   ```yaml
+   backend:
+     name: github
+     repo: username-anda/jkimawarsaron.org
+     branch: main
+   ```
+2. Tim admin bisa login menggunakan akun GitHub mereka yang memiliki akses ke repositori tersebut.
+3. Saat admin mengunggah flyer acara atau memperbarui buletin di `/admin` lalu klik **Publish**, GitHub Actions akan otomatis melakukan build dan website di Hostinger terbarui dalam waktu ~1 menit.

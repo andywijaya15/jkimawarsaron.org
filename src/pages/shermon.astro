@@ -1,0 +1,125 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allSermons = await getCollection('sermons');
+const featuredSermon = allSermons[0];
+---
+
+<Layout title="Khotbah & Media - JKI MAWAR SARON" currentPage="shermon">
+  <section class="page-header text-center">
+    <div class="container px-4 px-lg-5">
+      <span class="church-badge mb-3">Word of God</span>
+      <h1 class="display-5 fw-bold mb-3">Khotbah & Firman</h1>
+      <p class="lead text-secondary mx-auto" style="max-width: 680px;">
+        Dengarkan kembali pesan Firman Tuhan yang menguatkan, membangun iman, dan menuntun langkah kehidupan Anda setiap minggu.
+      </p>
+    </div>
+  </section>
+
+  <div class="container px-4 px-lg-5 my-5">
+    <!-- Featured Sermon -->
+    <div class="church-card p-4 p-lg-5 mb-5">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-6">
+          <div class="rounded-4 overflow-hidden shadow-sm position-relative" style="height: 320px;">
+            <img
+              src={featuredSermon?.data.image || "/assets/img/Background/bg-worship.jpg"}
+              alt={featuredSermon?.data.title || "Seri Khotbah"}
+              class="w-100 h-100"
+              style="object-fit: cover;"
+            />
+            <div class="position-absolute top-50 start-50 translate-middle">
+              <a
+                href={featuredSermon?.data.youtubeId ? `https://www.youtube.com/watch?v=${featuredSermon.data.youtubeId}` : "https://www.youtube.com/@JKIMawarSaronSemarang/streams"}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-church-primary rounded-circle d-flex align-items-center justify-content-center p-0"
+                style="width: 64px; height: 64px;"
+                aria-label="Putar khotbah di YouTube"
+              >
+                <i class="fas fa-play fs-5 ms-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <span class="church-badge mb-2">{featuredSermon?.data.series || "Seri Terkini"}</span>
+          <h2 class="h3 fw-bold mb-3">{featuredSermon?.data.title || "Survival Mode: Kuasa Iman Menembus Badai"}</h2>
+          <p class="text-muted small mb-3">
+            <i class="fas fa-user-tie me-1"></i> Pembicara: {featuredSermon?.data.speaker || "Ps. Iman El Roi"}
+          </p>
+          <p class="text-secondary mb-4" style="line-height: 1.7;">
+            {featuredSermon?.body?.trim() || "Tantangan hidup di masa kini kerap mendorong kita ke batas kemampuan. Namun firman Tuhan menegaskan bahwa dalam kerapuhan kita, kuasa dan kemuliaan Tuhan bekerja menyempurnakan iman kita."}
+          </p>
+          <a
+            href={featuredSermon?.data.youtubeId ? `https://www.youtube.com/watch?v=${featuredSermon.data.youtubeId}` : "https://www.youtube.com/@JKIMawarSaronSemarang/streams"}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-church-primary"
+          >
+            <i class="fab fa-youtube me-1"></i>
+            Tonton Khotbah di YouTube
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sermon Archive Cards -->
+    <h3 class="fw-bold mb-4" style="font-size: 1.6rem;">Arsip Seri Khotbah</h3>
+    <div class="row g-4 mb-5">
+      <div class="col-md-6">
+        <div class="church-card h-100 p-4 d-flex flex-column">
+          <span class="church-badge mb-2 align-self-start">Seri Pemuridan</span>
+          <h4 class="fw-bold mb-2">Kerajaan Allah di Luar Empat Dinding</h4>
+          <p class="text-secondary small flex-grow-1" style="line-height: 1.6;">
+            Bagaimana gereja lokal menjadi garam dan terang yang nyata bagi kota Semarang melalui kasih, integritas, dan perbuatan baik sehari-hari.
+          </p>
+          <a
+            href="https://www.youtube.com/@JKIMawarSaronSemarang/videos"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-church-outline mt-3"
+          >
+            Tonton Arsip Video
+          </a>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="church-card h-100 p-4 d-flex flex-column">
+          <span class="church-badge mb-2 align-self-start">Seri Kehidupan Keluarga</span>
+          <h4 class="fw-bold mb-2">Membangun Rumah Tangga yang Solid</h4>
+          <p class="text-secondary small flex-grow-1" style="line-height: 1.6;">
+            Prinsip-prinsip alkitabiah dalam membesarkan anak, memelihara keharmonisan pernikahan, dan menghadirkan damai Kristus di tengah keluarga.
+          </p>
+          <a
+            href="https://www.youtube.com/@JKIMawarSaronSemarang/videos"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-church-outline mt-3"
+          >
+            Tonton Arsip Video
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- YouTube Banner Callout -->
+    <div class="church-card p-4 p-lg-5 text-center" style="background-color: #14191F; color: #FFFFFF;">
+      <h3 class="fw-bold text-white mb-3">Arsip Lengkap Khotbah & Renungan</h3>
+      <p class="text-white-50 mx-auto mb-4" style="max-width: 600px;">
+        Kunjungi kanal resmi YouTube JKI Mawar Saron Semarang untuk menyaksikan siaran ulang ibadah raya, pujian penyembahan, dan pengajaran rohani.
+      </p>
+      <a
+        href="https://www.youtube.com/@JKIMawarSaronSemarang/featured"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-church-primary"
+      >
+        <i class="fab fa-youtube me-1"></i>
+        Buka YouTube JKI Mawar Saron
+      </a>
+    </div>
+  </div>
+</Layout>

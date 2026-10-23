@@ -1,0 +1,42 @@
+---
+---
+
+<a
+  id="live-button"
+  href="https://www.youtube.com/@JKIMawarSaronSemarang/streams"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="btn-church-primary d-inline-flex align-items-center justify-content-center gap-2"
+>
+  <span class="live-dot"></span>
+  <span>Tonton Ibadah Live</span>
+</a>
+
+<script is:inline>
+  function updateLiveStatus() {
+    const currentTime = new Date();
+    const dayOfWeek = currentTime.getDay(); // 0 = Minggu
+    let isLiveHours = false;
+
+    // Ibadah Minggu jam 09.00 sampai 12.30 WIB
+    if (dayOfWeek === 0) {
+      const hours = currentTime.getHours();
+      const minutes = currentTime.getMinutes();
+      const totalMinutes = hours * 60 + minutes;
+      if (totalMinutes >= 9 * 60 && totalMinutes <= 12 * 60 + 30) {
+        isLiveHours = true;
+      }
+    }
+
+    const liveBtn = document.getElementById("live-button");
+    if (liveBtn) {
+      const dot = liveBtn.querySelector(".live-dot");
+      if (dot) {
+        dot.style.display = isLiveHours ? "inline-block" : "inline-block";
+      }
+    }
+  }
+
+  updateLiveStatus();
+  setInterval(updateLiveStatus, 60000);
+</script>

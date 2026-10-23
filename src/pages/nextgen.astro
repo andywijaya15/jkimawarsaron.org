@@ -1,0 +1,79 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="NextGen (Youth Impact) - JKI MAWAR SARON" currentPage="ministry">
+  <section class="page-header text-center">
+    <div class="container px-4 px-lg-5">
+      <a href="/ministry" class="church-badge mb-3 text-decoration-none">
+        <i class="fas fa-arrow-left me-1"></i> Kembali ke Divisi Pelayanan
+      </a>
+      <h1 class="display-5 fw-bold mb-3">NextGen (Youth Impact)</h1>
+      <p class="lead text-secondary mx-auto" style="max-width: 680px;">
+        Membangkitkan generasi muda yang takut akan Tuhan, berakar kuat dalam kebenaran, dan berdampak bagi lingkungan sekitar.
+      </p>
+    </div>
+  </section>
+
+  <div class="container px-4 px-lg-5 my-5">
+    <!-- Youth Video -->
+    <div class="church-card p-4 p-lg-5 mb-5 mx-auto" style="max-width: 900px;">
+      <h2 class="h4 fw-bold mb-3 text-center">Suasana Kegerakan Pemuda</h2>
+      <div class="rounded-4 overflow-hidden mb-3 shadow-sm" style="border: 1px solid var(--color-border); background: #000;">
+        <video autoplay muted loop playsinline controls class="w-100 d-block" style="max-height: 480px;">
+          <source src="/assets/Video/youthimpact.mp4" type="video/mp4" />
+          Browser Anda tidak mendukung pemutaran video.
+        </video>
+      </div>
+      <p class="text-secondary text-center small mb-0">
+        Jadwal Ibadah Youth Impact: Setiap Minggu jam 11.00 WIB di Main Hall JKI Mawar Saron.
+      </p>
+    </div>
+
+    <!-- Youth Highlight Photo -->
+    <div class="church-card p-4 p-lg-5 mb-5 mx-auto" style="max-width: 900px;">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-6">
+          <div class="rounded-4 overflow-hidden shadow-sm" style="max-height: 320px; border: 1px solid var(--color-border);">
+            <img
+              src="/assets/img/Events/youth-impact-service.jpg"
+              alt="Suasana Ibadah Youth Impact JKI Mawar Saron"
+              class="w-100 h-100"
+              style="object-fit: cover;"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <span class="church-badge mb-2">Komunitas Remaja & Pemuda</span>
+          <h2 class="h4 fw-bold mb-3">Hadapi Masa Depan Bersama Kristus</h2>
+          <p class="text-secondary mb-0" style="line-height: 1.7;">
+            Suasana persekutuan yang hangat, dinamis, dan saling menguatkan. Setiap minggu pemuda diajak memuji Tuhan dengan penuh sukacita serta mendalami firman yang relevan bagi kehidupan sehari-hari.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Youth Profile & Purpose -->
+    <div class="church-card p-4 p-lg-5 mb-5 mx-auto" style="max-width: 900px;">
+      <span class="church-badge mb-2">Visi Generasi Muda</span>
+      <h2 class="h3 fw-bold mb-3">Panggilan Menjadi Terang</h2>
+      <p class="text-secondary" style="font-size: 1.05rem; line-height: 1.8;">
+        Adalah sukacita dan kerinduan kami untuk melayani dan membimbing generasi muda agar mengenal identitas mereka yang sejati di dalam Kristus. Di tengah tantangan zaman yang serba cepat dan penuh tekanan pergaulan, kami percaya bahwa anak-anak muda memiliki panggilan mulia untuk membawa dampak positif bagi sekolah, kampus, dan tempat kerja mereka.
+      </p>
+      <p class="text-secondary" style="font-size: 1.05rem; line-height: 1.8;">
+        Melalui Youth Impact, remaja dan pemuda diajak bertumbuh dalam hadirat Tuhan lewat pujian kontemporer, khotbah yang aplikatif, kelompok diskusi teman sebaya, serta beragam kegiatan komunitas yang positif.
+      </p>
+
+      <div class="d-flex flex-wrap gap-3 mt-4">
+        <a href="https://www.instagram.com/jkimawarsaron.smg/" target="_blank" rel="noopener noreferrer" class="btn-church-primary">
+          <i class="fab fa-instagram me-1"></i>
+          Ikuti Instagram Pemuda
+        </a>
+        <a href="/ministry" class="btn-church-outline">
+          <i class="fas fa-arrow-left me-1"></i>
+          Kembali ke Pelayanan
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>

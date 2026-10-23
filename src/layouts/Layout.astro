@@ -1,0 +1,56 @@
+---
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  currentPage?: string;
+}
+
+const {
+  title = 'JKI MAWAR SARON',
+  description = 'Website Resmi JKI Mawar Saron Semarang. Gereja lokal yang ramah keluarga, berpusat pada Kristus dan melayani sesama.',
+  currentPage = '',
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content={description} />
+  <meta name="author" content="JKI Mawar Saron" />
+  <title>{title}</title>
+  <link rel="icon" type="image/png" href="/assets/Icons/LOGO JKI MS.png" />
+
+  <!-- Font Awesome icons -->
+  <script is:inline src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Core Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/styles.css" />
+  <!-- Church Warm Theme CSS (JPCC & Antislop) -->
+  <link rel="stylesheet" href="/css/church-theme.css" />
+</head>
+
+<body id="page-top">
+  <Navbar currentPage={currentPage} />
+
+  <main id="main-content">
+    <slot />
+  </main>
+
+  <Footer />
+
+  <!-- Bootstrap bundle JS -->
+  <script is:inline src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Core theme JS -->
+  <script is:inline src="/js/scripts.js"></script>
+</body>
+</html>

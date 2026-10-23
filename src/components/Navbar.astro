@@ -1,0 +1,72 @@
+---
+interface Props {
+  currentPage?: string;
+}
+
+const { currentPage = '' } = Astro.props;
+---
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container px-3 px-lg-4">
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <img
+        src="/assets/Icons/LOGO JKI MS.png"
+        alt="Logo JKI Mawar Saron"
+        width="48"
+        height="48"
+        class="d-inline-block align-text-top me-2"
+      />
+      <div class="d-flex flex-column text-start">
+        <span class="fw-bold" style="font-family: var(--font-heading); font-size: 1.05rem; line-height: 1.1; color: var(--color-charcoal);">JKI MAWAR SARON</span>
+        <span class="text-muted" style="font-size: 0.75rem; letter-spacing: 0.04em;">SEMARANG</span>
+      </div>
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarResponsive"
+      aria-controls="navbarResponsive"
+      aria-expanded="false"
+      aria-label="Buka navigasi menu"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1 my-3 my-lg-0">
+        <li class="nav-item">
+          <a class:list={["nav-link", { active: currentPage === 'home' }]} href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class:list={["nav-link", { active: currentPage === 'ourstory' }]} href="/ourstory">Our Story</a>
+        </li>
+        <li class="nav-item">
+          <a class:list={["nav-link", { active: currentPage === 'ministry' }]} href="/ministry">Ministry</a>
+        </li>
+        <li class="nav-item">
+          <a class:list={["nav-link", { active: currentPage === 'christ-community' }]} href="/christ-community">Christ Community</a>
+        </li>
+        <li class="nav-item">
+          <a class:list={["nav-link", { active: currentPage === 'shermon' }]} href="/shermon">Sermon</a>
+        </li>
+        <li class="nav-item">
+          <a class:list={["nav-link", { active: currentPage === 'events' }]} href="/events">Events</a>
+        </li>
+        <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+          <a
+            href="https://www.youtube.com/@JKIMawarSaronSemarang/streams"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-church-primary py-2 px-3"
+            style="font-size: 0.85rem;"
+          >
+            <span class="live-dot me-1"></span>
+            Ibadah Online
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

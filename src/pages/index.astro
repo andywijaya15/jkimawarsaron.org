@@ -1,0 +1,325 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LiveButton from '../components/LiveButton.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { getCollection } from 'astro:content';
+
+const bulletins = await getCollection('bulletin');
+const latestBulletin = bulletins[0]?.data;
+
+// Fallback data siaran ibadah/khotbah terbaru JKI Mawar Saron Semarang
+let latestVideo = {
+  id: '4tqfQkWYaeg',
+  title: 'DIKASIHI : INILAH SAYA DI HADAPAN-NYA',
+  speaker: 'Ps. Yoseph Kurniawan',
+};
+
+try {
+  const response = await fetch(
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCk_OqB7rx35o0620f4GtfJQ',
+    { signal: AbortSignal.timeout(3000) }
+  );
+  if (response.ok) {
+    const xml = await response.text();
+    const videoIdMatch = xml.match(/<yt:videoId>([^<]+)<\/yt:videoId>/);
+    const titles = [...xml.matchAll(/<title>([^<]+)<\/title>/g)].map(m => m[1]);
+    if (videoIdMatch && titles.length > 1) {
+      const fullTitle = titles[1];
+      const parts = fullTitle.split('|');
+      latestVideo = {
+        id: videoIdMatch[1],
+        title: parts[0]?.trim() || fullTitle,
+        speaker: parts[1]?.trim() || 'Ps. Iman El Roi',
+      };
+    }
+  }
+} catch {
+  // Tetap gunakan data fallback jika offline atau timeout saat build
+}
+---
+
+<Layout title="JKI MAWAR SARON - Gereja Lokal di Semarang" currentPage="home">
+  <!-- Hero Section -->
+  <header class="church-hero position-relative d-flex align-items-center" style="min-height: 85vh; padding-top: 96px; padding-bottom: 60px;">
+    <video
+      src="/assets/Video/SURVIVAL MODE.mp4"
+      autoplay
+      loop
+      muted
+      playsinline
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 12%; z-index: 1;"
+    ></video>
+    <div class="church-hero-overlay position-absolute top-0 start-0 w-100 h-100" style="z-index: 2;"></div>
+
+    <div class="container px-4 px-lg-5 position-relative text-white py-4" style="z-index: 3;">
+      <div class="row align-items-center g-4 g-lg-5">
+        <div class="col-lg-7">
+          <span class="church-badge mb-3 bg-white text-dark d-inline-flex align-items-center gap-2" style="background-color: rgba(255, 255, 255, 0.92) !important; color: #1E242B !important;">
+            <img src="/assets/Icons/LOGO JKI MS.png" alt="JKI Mawar Saron" width="22" height="22" class="rounded-circle" />
+            <span>Welcome to JKI Mawar Saron Semarang</span>
+          </span>
+          <h1 class="display-5 fw-bold text-white mb-3" style="line-height: 1.18;">
+            Ada Tempat untuk Anda di Rumah Ini
+          </h1>
+          <p class="lead text-white-50 mb-4" style="max-width: 600px; font-size: 1.12rem; line-height: 1.6;">
+            Gereja lokal yang menghadirkan kemuliaan, kasih, dan kuasa Kerajaan Allah yang seutuhnya di luar empat dinding gereja.
+          </p>
+
+          <div class="d-flex flex-column flex-sm-row gap-3 align-items-stretch align-items-sm-center">
+            <a href="#service-schedule" class="btn-church-primary text-center">
+              <i class="fas fa-calendar-alt me-1"></i>
+              Lihat Jadwal Ibadah
+            </a>
+            <LiveButton />
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="church-card overflow-hidden shadow-lg p-0" style="background: rgba(20, 25, 31, 0.88); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.15);">
+            <div class="p-3 d-flex align-items-center justify-content-between border-bottom" style="border-color: rgba(255, 255, 255, 0.1) !important;">
+              <div class="d-flex align-items-center gap-2">
+                <span class="live-dot"></span>
+                <span class="text-white small fw-bold text-uppercase" style="letter-spacing: 0.05em;">Siaran Terkini</span>
+              </div>
+              <a href="https://www.youtube.com/@JKIMawarSaronSemarang/streams" target="_blank" rel="noopener noreferrer" class="badge text-decoration-none" style="background-color: rgba(200, 138, 62, 0.2); color: #E8B979; border: 1px solid rgba(200, 138, 62, 0.4);">
+                <i class="fab fa-youtube me-1"></i> YouTube Live
+              </a>
+            </div>
+
+            <div class="position-relative" style="padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000;">
+              <iframe
+                class="position-absolute top-0 start-0 w-100 h-100"
+                src={`https://www.youtube-nocookie.com/embed/${latestVideo.id}?rel=0`}
+                title={`Siaran Ibadah: ${latestVideo.title}`}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+                style="border: 0;"
+              ></iframe>
+            </div>
+
+            <div class="p-3">
+              <h2 class="h6 text-white fw-bold mb-1 text-truncate" title={latestVideo.title}>
+                {latestVideo.title}
+              </h2>
+              <p class="text-white-50 small mb-0">
+                <i class="fas fa-user-circle me-1 text-warning"></i> {latestVideo.speaker}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Service Schedule Bar (Visitor-First) -->
+  <section class="py-4" id="service-schedule" style="margin-top: -36px; position: relative; z-index: 10;">
+    <div class="container px-4 px-lg-5">
+      <div class="service-bar">
+        <div class="row g-3 align-items-center text-center text-lg-start">
+          <div class="col-lg-3 col-md-6 service-item">
+            <span class="text-uppercase small fw-bold text-muted d-block">Ibadah Raya</span>
+            <span class="fs-5 fw-bold text-dark d-block">Sunday Service</span>
+            <span class="text-secondary small"><i class="far fa-clock text-warning me-1"></i> Minggu 09.00 WIB</span>
+          </div>
+          <div class="col-lg-3 col-md-6 service-item">
+            <span class="text-uppercase small fw-bold text-muted d-block">Sekolah Minggu</span>
+            <span class="fs-5 fw-bold text-dark d-block">Impact Kids</span>
+            <span class="text-secondary small"><i class="far fa-clock text-warning me-1"></i> Minggu 09.00 WIB</span>
+          </div>
+          <div class="col-lg-3 col-md-6 service-item">
+            <span class="text-uppercase small fw-bold text-muted d-block">Pemuda & Remaja</span>
+            <span class="fs-5 fw-bold text-dark d-block">Youth Impact</span>
+            <span class="text-secondary small"><i class="far fa-clock text-warning me-1"></i> Minggu 11.00 WIB</span>
+          </div>
+          <div class="col-lg-3 col-md-6 text-center text-lg-end">
+            <a href="https://maps.app.goo.gl/zfCuDaWoGZLhA4Jz9" target="_blank" rel="noopener noreferrer" class="btn-church-outline w-100">
+              <i class="fas fa-map-marker-alt me-1"></i> Lokasi Ibadah
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visi dan Misi -->
+  <section class="py-5">
+    <div class="container px-4 px-lg-5">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="church-card p-4 p-lg-5 h-100">
+            <span class="church-badge mb-3">Visi Kami</span>
+            <h3 class="fw-bold mb-3" style="font-size: 1.5rem;">Gereja yang Hadir untuk Kota dan Bangsa</h3>
+            <p class="text-secondary mb-0" style="line-height: 1.7;">
+              Gereja lokal yang menghadirkan kemuliaan, kasih, dan kuasa Kerajaan Allah yang seutuhnya di luar empat dinding gereja.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="church-card p-4 p-lg-5 h-100">
+            <span class="church-badge mb-3">Misi Kami</span>
+            <h3 class="fw-bold mb-3" style="font-size: 1.5rem;">Pertumbuhan Rohani & Kepemimpinan</h3>
+            <p class="text-secondary mb-0" style="line-height: 1.7;">
+              Membangun kehidupan jemaat yang solid dalam Kristus dan memperbanyak pemimpin-pemimpin yang melayani dengan integritas.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ayat Firman & Renungan Mingguan -->
+  <section class="py-5" style="background-color: #F3EFE6;">
+    <div class="container px-4 px-lg-5">
+      <div class="church-card p-4 p-lg-5">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-5">
+            <div class="rounded-4 overflow-hidden" style="max-height: 320px;">
+              <img
+                class="img-fluid w-100 h-100"
+                style="object-fit: cover;"
+                src="/assets/img/Background/Alkitab2.jpeg"
+                alt="Alkitab Firman Tuhan"
+              />
+            </div>
+          </div>
+          <div class="col-lg-7">
+            <span class="church-badge mb-2">Ayat Minggu Ini</span>
+            <blockquote class="fs-4 fw-semibold text-dark my-3" style="font-family: var(--font-heading); line-height: 1.4;">
+              "Karena begitu besar kasih Allah akan dunia ini, sehingga Ia telah mengaruniakan Anak-Nya yang tunggal, supaya setiap orang yang percaya kepada-Nya tidak binasa, melainkan beroleh hidup yang kekal."
+            </blockquote>
+            <p class="text-muted fw-bold mb-3">Yohanes 3:16</p>
+            <p class="text-secondary mb-4" style="line-height: 1.7;">
+              Kasih Allah yang sejati tidak tinggal diam di kejauhan, melainkan mewujud nyata dalam pengorbanan Yesus Kristus. Mari hidup saling mengasihi dan menjadi saluran kasih-Nya bagi keluarga dan kota kita.
+            </p>
+            <a href="/shermon" class="btn-church-outline">
+              <i class="fas fa-book-open me-1"></i>
+              Lihat Seri Khotbah Lengkap
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community & Ministry Showcase -->
+  <section class="py-5">
+    <div class="container px-4 px-lg-5">
+      <div class="text-center max-w-2xl mx-auto mb-5">
+        <span class="church-badge mb-2">Next Steps</span>
+        <h2 class="fw-bold" style="font-size: 2.2rem;">Terhubung dan Melayani Bersama</h2>
+        <p class="text-secondary">Temukan wadah untuk bertumbuh, melayani sesama, dan membangun persahabatan rohani yang solid.</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+          <div class="church-card h-100 d-flex flex-column">
+            <div style="height: 200px; overflow: hidden;">
+              <img src="/assets/img/Background/impact-kids.jpg" alt="Impact Kids" class="w-100 h-100" style="object-fit: cover;" />
+            </div>
+            <div class="p-4 d-flex flex-column flex-grow-1">
+              <span class="church-badge mb-2 align-self-start">Generasi Anak</span>
+              <h4 class="fw-bold mb-2">Impact Kids</h4>
+              <p class="text-secondary small flex-grow-1" style="line-height: 1.6;">
+                Pelayanan anak yang mendidik generasi penerus mencintai Firman Tuhan melalui pembelajaran interaktif dan penuh sukacita.
+              </p>
+              <a href="/kids-impact" class="btn-church-outline mt-3">
+                Info Impact Kids
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="church-card h-100 d-flex flex-column">
+            <div style="height: 200px; overflow: hidden;">
+              <img src="/assets/img/Background/christ-cc.jpg" alt="Christ Community" class="w-100 h-100" style="object-fit: cover;" />
+            </div>
+            <div class="p-4 d-flex flex-column flex-grow-1">
+              <span class="church-badge mb-2 align-self-start">Komunitas Sel</span>
+              <h4 class="fw-bold mb-2">Christ Community</h4>
+              <p class="text-secondary small flex-grow-1" style="line-height: 1.6;">
+                Kelompok komunitas kecil yang saling mendoakan, belajar Firman, dan saling menguatkan dalam perjalanan iman sehari-hari.
+              </p>
+              <a href="/christ-community" class="btn-church-outline mt-3">
+                Gabung Komunitas
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="church-card h-100 d-flex flex-column">
+            <div style="height: 200px; overflow: hidden;">
+              <img src="/assets/img/Background/praise-and-worship.jpg" alt="Pelayanan Gereja" class="w-100 h-100" style="object-fit: cover;" />
+            </div>
+            <div class="p-4 d-flex flex-column flex-grow-1">
+              <span class="church-badge mb-2 align-self-start">Keterlibatan</span>
+              <h4 class="fw-bold mb-2">Divisi Pelayanan</h4>
+              <p class="text-secondary small flex-grow-1" style="line-height: 1.6;">
+                Salurkan talenta Anda melalui tim Praise & Worship, Usher, Diakonia, Media Creative, dan kepengurusan ibadah raya.
+              </p>
+              <a href="/ministry" class="btn-church-outline mt-3">
+                Jelajahi Divisi Pelayanan
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- History Teaser Section -->
+  <section class="py-5" style="background-color: var(--color-surface); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+    <div class="container px-4 px-lg-5">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-6">
+          <div class="rounded-4 overflow-hidden shadow-sm" style="height: 360px;">
+            <img
+              class="img-fluid w-100 h-100"
+              style="object-fit: cover;"
+              src="/assets/img/Background/gereja-jki-ms.jpg"
+              alt="Gedung Gereja JKI Mawar Saron"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <span class="church-badge mb-2">Kisah Perjalanan</span>
+          <h2 class="fw-bold mb-3" style="font-size: 2rem;">Perjalanan Iman Sejak Tahun 1997</h2>
+          <p class="text-secondary mb-3" style="line-height: 1.7;">
+            Berawal dari persekutuan doa sederhana di Jl. Teuku Umar Semarang yang dirintis oleh Alm. Bp. Pdm. Adi Sutjipto & Ibu Rachel Sutjipto, Tuhan terus memimpin JKI Mawar Saron bertumbuh membawa pemulihan bagi lingkungan sekitarnya.
+          </p>
+          <p class="text-secondary mb-4" style="line-height: 1.7;">
+            Kini di bawah penggembalaan Ps. Iman El Roi, gereja terus melayani jemaat lokal dengan semangat kegerakan anak muda, komunitas sel, dan pelayanan sosial bagi kota Semarang.
+          </p>
+          <a href="/ourstory" class="btn-church-primary">
+            Baca Kisah Perjalanan Lengkap
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Warta Jemaat & Buletin -->
+  <section class="py-5">
+    <div class="container px-4 px-lg-5">
+      <div class="church-card p-4 p-lg-5 text-center">
+        <span class="church-badge mb-2">Informasi & Warta</span>
+        <h2 class="fw-bold mb-3">{latestBulletin?.title || "Warta Mingguan Jemaat"}</h2>
+        <p class="text-secondary mx-auto mb-4" style="max-width: 600px;">
+          Dapatkan ringkasan khotbah mingguan, agenda kegiatan doa, jadwal pelayanan jemaat, dan warta keuangan gereja melalui buletin kami.
+        </p>
+        <div class="d-inline-block rounded-4 overflow-hidden shadow-sm" style="max-width: 720px; border: 1px solid var(--color-border);">
+          <img
+            class="img-fluid"
+            src={latestBulletin?.image || "/assets/img/Newsletter/bulletin-jki-ms.jpg"}
+            alt={latestBulletin?.title || "Buletin JKI Mawar Saron"}
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact & Pastoral Section -->
+  <ContactSection />
+</Layout>

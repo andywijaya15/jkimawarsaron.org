@@ -1,0 +1,54 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Anniversary 7th - JKI MAWAR SARON" currentPage="events">
+  <section class="page-header text-center">
+    <div class="container px-4 px-lg-5">
+      <a href="/events" class="church-badge mb-3 text-decoration-none">
+        <i class="fas fa-arrow-left me-1"></i> Kembali ke Agenda Acara
+      </a>
+      <h1 class="display-5 fw-bold mb-3">HUT JKI Mawar Saron ke-7</h1>
+      <p class="lead text-secondary mx-auto" style="max-width: 680px;">
+        Dokumentasi dan highlight ibadah ucapan syukur perayaan ulang tahun gereja yang ke-7.
+      </p>
+    </div>
+  </section>
+
+  <div class="container px-4 px-lg-5 my-5">
+    <div class="church-card p-4 p-lg-5 mb-5 mx-auto" style="max-width: 900px;">
+      <h2 class="h4 fw-bold mb-3 text-center">Highlight Video Perayaan</h2>
+      <div class="rounded-4 overflow-hidden mb-4 shadow-sm" style="border: 1px solid var(--color-border); background: #000;">
+        <video controls class="w-100 d-block" playsinline style="max-height: 480px;">
+          <source src="/assets/Video/anniversary 7th.mp4" type="video/mp4" />
+          Browser Anda tidak mendukung pemutaran video.
+        </video>
+      </div>
+      <p class="text-secondary text-center small mb-0">
+        Kompilasi momen sukacita perayaan HUT ke-7 JKI Mawar Saron bersama seluruh pelayan dan jemaat.
+      </p>
+    </div>
+
+    <div class="church-card p-4 p-lg-5 mx-auto" style="max-width: 900px;">
+      <h2 class="h4 fw-bold mb-3 text-center">Rekaman Ibadah Syukur (YouTube)</h2>
+      <div
+        class="rounded-4 overflow-hidden shadow-sm position-relative mb-4"
+        style="padding-bottom: 56.25%; height: 0; border: 1px solid var(--color-border);"
+      >
+        <iframe
+          class="position-absolute top-0 start-0 w-100 h-100"
+          src="https://www.youtube.com/embed/FaR9DyGkQ_s"
+          title="Rekaman Ibadah Syukur HUT ke-7 JKI Mawar Saron"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div class="text-center">
+        <a href="/events" class="btn-church-outline">
+          <i class="fas fa-arrow-left me-1"></i>
+          Lihat Acara Lainnya
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>

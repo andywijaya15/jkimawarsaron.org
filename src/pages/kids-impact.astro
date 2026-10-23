@@ -1,0 +1,89 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Impact Kids - JKI MAWAR SARON" currentPage="ministry">
+  <section class="page-header text-center">
+    <div class="container px-4 px-lg-5">
+      <a href="/ministry" class="church-badge mb-3 text-decoration-none">
+        <i class="fas fa-arrow-left me-1"></i> Kembali ke Divisi Pelayanan
+      </a>
+      <h1 class="display-5 fw-bold mb-3">Impact Kids</h1>
+      <p class="lead text-secondary mx-auto" style="max-width: 680px;">
+        Membimbing generasi anak mencintai Firman Tuhan, bertumbuh dalam iman, dan mengalami kasih Kristus sejak dini.
+      </p>
+    </div>
+  </section>
+
+  <!-- Video Banner -->
+  <div class="container px-4 px-lg-5 my-5">
+    <div class="church-card p-4 p-lg-5 mb-5 mx-auto" style="max-width: 900px;">
+      <h2 class="h4 fw-bold mb-3 text-center">Keseruan Ibadah Anak</h2>
+      <div class="rounded-4 overflow-hidden mb-3 shadow-sm" style="border: 1px solid var(--color-border); background: #000;">
+        <video autoplay muted loop playsinline controls class="w-100 d-block" style="max-height: 440px;">
+          <source src="/assets/Video/kids-impact-video.mp4" type="video/mp4" />
+          Browser Anda tidak mendukung pemutaran video.
+        </video>
+      </div>
+      <p class="text-secondary text-center small mb-0">
+        Jadwal Ibadah Anak: Setiap Minggu jam 09.00 WIB (bersamaan dengan Ibadah Raya Umum).
+      </p>
+    </div>
+
+    <!-- What is Kids Impact -->
+    <div class="church-card p-4 p-lg-5 mb-5 mx-auto" style="max-width: 900px;">
+      <span class="church-badge mb-2">Tentang Pelayanan</span>
+      <h2 class="h3 fw-bold mb-3">Apa Itu Impact Kids?</h2>
+      <p class="text-secondary" style="font-size: 1.05rem; line-height: 1.8;">
+        Impact Kids adalah pelayanan anak di JKI Mawar Saron Semarang yang dirancang secara khusus agar anak-anak dapat memahami firman Tuhan dengan cara yang menyenangkan, kreatif, dan relevan dengan usia mereka.
+      </p>
+      <p class="text-secondary" style="font-size: 1.05rem; line-height: 1.8;">
+        Didampingi oleh kakak-kakak pembina yang penuh kasih dan dedikasi, anak-anak diajak bernyanyi pujian, mendengarkan cerita Alkitab bergambar, membuat karya kreasi, serta belajar berdoa untuk teman dan keluarga mereka.
+      </p>
+
+      <hr class="my-4" style="border-color: var(--color-border);" />
+
+      <div class="row g-4 text-center">
+        <div class="col-md-4">
+          <div class="p-3 rounded-3" style="background-color: var(--color-canvas);">
+            <i class="fas fa-child-reaching fs-2 text-warning mb-2"></i>
+            <h5 class="fw-bold mb-1">Kelas Batita & Balita</h5>
+            <p class="text-secondary small mb-0">Usia 2 hingga 5 tahun</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="p-3 rounded-3" style="background-color: var(--color-canvas);">
+            <i class="fas fa-book-bible fs-2 text-warning mb-2"></i>
+            <h5 class="fw-bold mb-1">Kelas Pratama</h5>
+            <p class="text-secondary small mb-0">Kelas 1 hingga 3 SD</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="p-3 rounded-3" style="background-color: var(--color-canvas);">
+            <i class="fas fa-users fs-2 text-warning mb-2"></i>
+            <h5 class="fw-bold mb-1">Kelas Madya</h5>
+            <p class="text-secondary small mb-0">Kelas 4 hingga 6 SD</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Event Kids Poster -->
+    <div class="church-card p-4 p-lg-5 mx-auto text-center" style="max-width: 900px;">
+      <span class="church-badge mb-2">Kegiatan Istimewa</span>
+      <h3 class="fw-bold mb-3">Agenda & Acara Anak</h3>
+      <p class="text-secondary mx-auto mb-4" style="max-width: 600px;">
+        Selain ibadah mingguan, Impact Kids juga menyelenggarakan perayaan Paskah anak, panggung boneka, dan ibadah padang yang membangun kebersamaan.
+      </p>
+      <div class="d-inline-block rounded-4 overflow-hidden shadow-sm mb-4" style="max-width: 640px; border: 1px solid var(--color-border);">
+        <img src="/assets/img/Background/events-kids.jpg" alt="Acara Impact Kids" class="img-fluid" />
+      </div>
+      <div>
+        <a href="/ministry" class="btn-church-outline">
+          <i class="fas fa-arrow-left me-1"></i>
+          Lihat Pelayanan Lainnya
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>

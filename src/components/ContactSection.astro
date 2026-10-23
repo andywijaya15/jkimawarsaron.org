@@ -1,0 +1,137 @@
+---
+---
+
+<!-- Leaflet CSS -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""
+/>
+
+<section class="py-5" id="contact">
+  <div class="container px-4 px-lg-5">
+    <div class="church-card p-4 p-lg-5">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-6">
+          <span class="church-badge mb-3">Care & Contact</span>
+          <h2 class="fw-bold mb-3" style="font-size: 2rem;">Ada yang Bisa Kami Bantu?</h2>
+          <p class="text-secondary mb-4" style="line-height: 1.7;">
+            Pintu rumah kami selalu terbuka untuk Anda. Baik Anda yang baru pertama kali ingin hadir, membutuhkan permohonan doa, atau ingin berkonsultasi dengan tim pastoral kami.
+          </p>
+
+          <div class="d-flex flex-column gap-3 mb-4">
+            <div class="d-flex align-items-start gap-3">
+              <div class="d-inline-flex align-items-center justify-content-center rounded-circle mt-1" style="width: 36px; height: 36px; background-color: rgba(200, 138, 62, 0.15); color: var(--color-accent); flex-shrink: 0;">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div>
+                <strong class="d-block text-dark">Alamat Gereja</strong>
+                <span class="text-secondary small">Jl. Widosari Raya No. 15, Brumbungan, Semarang, Jawa Tengah 50135</span>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-start gap-3">
+              <div class="d-inline-flex align-items-center justify-content-center rounded-circle mt-1" style="width: 36px; height: 36px; background-color: rgba(200, 138, 62, 0.15); color: var(--color-accent); flex-shrink: 0;">
+                <i class="fas fa-phone-alt"></i>
+              </div>
+              <div>
+                <strong class="d-block text-dark">Telepon Sekretariat</strong>
+                <a href="tel:0243518673" class="text-secondary small">02-435-18673</a>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-start gap-3">
+              <div class="d-inline-flex align-items-center justify-content-center rounded-circle mt-1" style="width: 36px; height: 36px; background-color: rgba(200, 138, 62, 0.15); color: var(--color-accent); flex-shrink: 0;">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div>
+                <strong class="d-block text-dark">Email Pelayanan</strong>
+                <a href="mailto:jkimawarsaron@gmail.com" class="text-secondary small">jkimawarsaron@gmail.com</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex flex-wrap gap-2">
+            <a
+              href="https://maps.app.goo.gl/zfCuDaWoGZLhA4Jz9"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-church-primary"
+            >
+              <i class="fas fa-directions me-1"></i>
+              Petunjuk Arah Google Maps
+            </a>
+            <a
+              href="mailto:jkimawarsaron@gmail.com?subject=Permohonan%20Doa%20JKI%20Mawar%20Saron"
+              class="btn-church-outline"
+            >
+              <i class="fas fa-hands-praying me-1"></i>
+              Kirim Permohonan Doa
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="rounded-4 overflow-hidden shadow-sm" style="height: 340px; border: 1px solid var(--color-border); position: relative; z-index: 1;">
+            <div id="church-map" style="width: 100%; height: 100%; min-height: 340px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Leaflet JS -->
+<script
+  is:inline
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+  crossorigin=""
+></script>
+
+<script is:inline>
+  function initChurchMap() {
+    const mapElement = document.getElementById("church-map");
+    if (!mapElement || typeof L === "undefined") return;
+    if (mapElement._leaflet_id) return; // Mencegah re-inisialisasi ganda
+
+    // Titik lokasi JKI Mawar Saron Semarang: -6.9844928, 110.4262962
+    const lat = -6.9844928;
+    const lng = 110.4262962;
+
+    // Pastikan icon Leaflet merujuk aset CDN secara tepat
+    delete L.Icon.Default.prototype._getIconUrl;
+    L.Icon.Default.mergeOptions({
+      iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+      iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+      shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+    });
+
+    const map = L.map("church-map", {
+      scrollWheelZoom: false,
+    }).setView([lat, lng], 17);
+
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>',
+    }).addTo(map);
+
+    const marker = L.marker([lat, lng]).addTo(map);
+    marker.bindPopup(`
+      <div style="font-family: var(--font-heading, sans-serif); font-size: 0.88rem; line-height: 1.4; padding: 2px;">
+        <strong style="color: #1E242B; font-size: 0.95rem;">JKI Mawar Saron</strong><br>
+        <span style="color: #64748B; font-size: 0.8rem;">Jl. Widosari Raya No. 15, Semarang</span><br>
+        <a href="https://maps.app.goo.gl/zfCuDaWoGZLhA4Jz9" target="_blank" rel="noopener noreferrer" style="color: #C88A3E; font-weight: 600; font-size: 0.8rem; display: inline-block; margin-top: 6px;">
+          Buka di Google Maps &rarr;
+        </a>
+      </div>
+    `).openPopup();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initChurchMap);
+  } else {
+    initChurchMap();
+  }
+</script>

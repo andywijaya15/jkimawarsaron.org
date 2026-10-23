@@ -1,0 +1,77 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allEvents = await getCollection('events');
+const featuredEvent = allEvents.find(e => e.data.featured) || allEvents[0];
+const regularEvents = allEvents.filter(e => e.id !== featuredEvent?.id);
+---
+
+<Layout title="Agenda & Acara - JKI MAWAR SARON" currentPage="events">
+  <section class="page-header text-center">
+    <div class="container px-4 px-lg-5">
+      <span class="church-badge mb-3">Calendar & Gatherings</span>
+      <h1 class="display-5 fw-bold mb-3">Agenda & Acara Gereja</h1>
+      <p class="lead text-secondary mx-auto" style="max-width: 680px;">
+        Temukan perayaan istimewa, seminar keluarga, retret pemuda, dan ibadah gabungan bersama keluarga besar JKI Mawar Saron.
+      </p>
+    </div>
+  </section>
+
+  <div class="container px-4 px-lg-5 my-5">
+    {featuredEvent && (
+      <div class="church-card p-4 p-lg-5 mb-5">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-6">
+            <div class="rounded-4 overflow-hidden shadow-sm" style="max-height: 340px;">
+              <img
+                src={featuredEvent.data.image}
+                alt={featuredEvent.data.title}
+                class="w-100 h-100"
+                style="object-fit: cover;"
+              />
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <span class="church-badge mb-2">{featuredEvent.data.category}</span>
+            <h2 class="h3 fw-bold mb-3">{featuredEvent.data.title}</h2>
+            <p class="text-secondary mb-4" style="line-height: 1.7;">
+              {featuredEvent.body?.trim()}
+            </p>
+            <a href={featuredEvent.data.actionUrl || "/events-anniversary-7th"} class="btn-church-primary">
+              <i class="fas fa-calendar-check me-1"></i>
+              {featuredEvent.data.actionText || "Lihat Acara"}
+            </a>
+          </div>
+        </div>
+      </div>
+    )}
+
+    <!-- Other Events Grid -->
+    <h3 class="fw-bold mb-4" style="font-size: 1.6rem;">Kegiatan Mendatang & Rutin</h3>
+    <div class="row g-4 mb-5">
+      {regularEvents.map(event => (
+        <div class="col-lg-4 col-md-6">
+          <div class="church-card h-100 d-flex flex-column">
+            <div style="height: 220px; overflow: hidden;">
+              <img src={event.data.image} alt={event.data.title} class="w-100 h-100" style="object-fit: cover;" />
+            </div>
+            <div class="p-4 d-flex flex-column flex-grow-1">
+              <span class="church-badge mb-2 align-self-start">{event.data.category}</span>
+              <h4 class="fw-bold mb-2">{event.data.title}</h4>
+              <p class="text-secondary small flex-grow-1" style="line-height: 1.6;">
+                {event.body?.trim()}
+              </p>
+              <a
+                href={event.data.actionUrl || `mailto:jkimawarsaron@gmail.com?subject=Informasi%20${encodeURIComponent(event.data.title)}`}
+                class="btn-church-outline mt-3"
+              >
+                {event.data.actionText || "Informasi Acara"}
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</Layout>
