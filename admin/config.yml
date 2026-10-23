@@ -1,0 +1,62 @@
+# Decap CMS Configuration - JKI Mawar Saron Semarang
+backend:
+  name: github
+  repo: andywijaya15/jkimawarsaron.org
+  branch: main
+  base_url: https://api.github.com
+
+# Manajemen Media & Aset Unggahan
+media_folder: "public/assets/img/uploads"
+public_folder: "/assets/img/uploads"
+
+# Lokalisasi & Identitas Web
+locale: "id"
+site_url: "https://new.jkimawarsaron.org"
+display_url: "https://new.jkimawarsaron.org"
+logo_url: "/assets/Icons/LOGO JKI MS.png"
+
+# Koleksi Konten Gereja
+collections:
+  - name: "events"
+    label: "Agenda & Acara Gereja"
+    label_singular: "Acara"
+    folder: "src/content/events"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Judul Acara", name: "title", widget: "string" }
+      - { label: "Tanggal & Waktu", name: "date", widget: "string", hint: "Contoh: Minggu, 25 Desember 2026 | 09.00 WIB" }
+      - { label: "Lokasi", name: "location", widget: "string", default: "Main Hall JKI Mawar Saron" }
+      - { label: "Kategori", name: "category", widget: "select", options: ["Ibadah Raya", "Pemuda & Remaja", "Doa & Puasa", "Perayaan Khusus", "Seminar & Family"] }
+      - { label: "Poster Flyer Acara", name: "image", widget: "image" }
+      - { label: "Acara Utama (Featured)", name: "featured", widget: "boolean", default: false }
+      - { label: "Deskripsi Acara", name: "body", widget: "markdown" }
+
+  - name: "bulletin"
+    label: "Warta & Buletin Jemaat"
+    label_singular: "Edisi Buletin"
+    folder: "src/content/bulletin"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Judul Edisi", name: "title", widget: "string", hint: "Contoh: Buletin Edisi Oktober 2026" }
+      - { label: "Tanggal Terbit", name: "date", widget: "string" }
+      - { label: "Cover Buletin", name: "image", widget: "image" }
+      - { label: "Tema Warta", name: "theme", widget: "string" }
+      - { label: "File PDF Buletin", name: "fileUrl", widget: "file", required: false }
+      - { label: "Ringkasan Warta & Renungan", name: "body", widget: "markdown" }
+
+  - name: "sermons"
+    label: "Khotbah & Firman"
+    label_singular: "Khotbah"
+    folder: "src/content/sermons"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Judul Khotbah", name: "title", widget: "string" }
+      - { label: "Pembicara", name: "speaker", widget: "string" }
+      - { label: "Tanggal", name: "date", widget: "string" }
+      - { label: "Nats Firman", name: "passage", widget: "string", hint: "Contoh: Roma 8:28" }
+      - { label: "Thumbnail Khotbah", name: "image", widget: "image" }
+      - { label: "ID Video YouTube", name: "youtubeId", widget: "string", required: false, hint: "Contoh: 4tqfQkWYaeg" }
+      - { label: "Rangkuman Kotbah", name: "body", widget: "markdown" }

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /keystatic/
+Disallow: /deploy-webhook.php
+
+Sitemap: https://jkimawarsaron.org/sitemap-index.xml
