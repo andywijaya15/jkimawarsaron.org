@@ -1,14 +1,7 @@
 ---
 ---
 
-<!-- Leaflet CSS -->
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-  crossorigin=""
-/>
-
+<!-- Contact & Pastoral Section -->
 <section class="py-5" id="contact">
   <div class="container px-4 px-lg-5">
     <div class="church-card p-4 p-lg-5">
@@ -82,14 +75,6 @@
   </div>
 </section>
 
-<!-- Leaflet JS -->
-<script
-  is:inline
-  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-  crossorigin=""
-></script>
-
 <script is:inline>
   function initChurchMap() {
     const mapElement = document.getElementById("church-map");
@@ -129,9 +114,43 @@
     `).openPopup();
   }
 
+  function loadLeafletAndInit() {
+    if (window.L) {
+      initChurchMap();
+      return;
+    }
+
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+    document.head.appendChild(link);
+
+    const script = document.createElement("script");
+    script.src = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+    script.onload = initChurchMap;
+    document.head.appendChild(script);
+  }
+
+  function setupLazyChurchMap() {
+    const mapElement = document.getElementById("church-map");
+    if (!mapElement) return;
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          observer.disconnect();
+          loadLeafletAndInit();
+        }
+      }, { rootMargin: "300px" });
+      observer.observe(mapElement);
+    } else {
+      loadLeafletAndInit();
+    }
+  }
+
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initChurchMap);
+    document.addEventListener("DOMContentLoaded", setupLazyChurchMap);
   } else {
-    initChurchMap();
+    setupLazyChurchMap();
   }
 </script>

@@ -42,11 +42,14 @@ try {
   <!-- Hero Section -->
   <header class="church-hero position-relative d-flex align-items-center" style="min-height: 85vh; padding-top: 96px; padding-bottom: 60px;">
     <video
-      src="/assets/Video/SURVIVAL MODE.mp4"
+      src="/assets/Video/hero-ambient.mp4"
+      poster="/assets/img/Background/hero-video-poster.jpg"
       autoplay
       loop
       muted
       playsinline
+      preload="metadata"
+      aria-hidden="true"
       style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 12%; z-index: 1;"
     ></video>
     <div class="church-hero-overlay position-absolute top-0 start-0 w-100 h-100" style="z-index: 2;"></div>
@@ -55,7 +58,7 @@ try {
       <div class="row align-items-center g-4 g-lg-5">
         <div class="col-lg-7">
           <span class="church-badge mb-3 bg-white text-dark d-inline-flex align-items-center gap-2" style="background-color: rgba(255, 255, 255, 0.92) !important; color: #1E242B !important;">
-            <img src="/assets/Icons/LOGO JKI MS.png" alt="JKI Mawar Saron" width="22" height="22" class="rounded-circle" />
+            <img src="/assets/Icons/logo-jki-ms-96.png" alt="JKI Mawar Saron" width="22" height="22" class="rounded-circle" />
             <span>Welcome to JKI Mawar Saron Semarang</span>
           </span>
           <h1 class="display-5 fw-bold text-white mb-3" style="line-height: 1.18;">
@@ -180,6 +183,10 @@ try {
                 style="object-fit: cover;"
                 src="/assets/img/Background/Alkitab2.jpeg"
                 alt="Alkitab Firman Tuhan"
+                loading="lazy"
+                decoding="async"
+                width="640"
+                height="360"
               />
             </div>
           </div>
@@ -215,11 +222,11 @@ try {
         <div class="col-lg-4 col-md-6">
           <div class="church-card h-100 d-flex flex-column">
             <div style="height: 200px; overflow: hidden;">
-              <img src="/assets/img/Background/impact-kids.jpg" alt="Impact Kids" class="w-100 h-100" style="object-fit: cover;" />
+              <img src="/assets/img/Background/impact-kids.jpg" alt="Impact Kids" class="w-100 h-100" style="object-fit: cover;" loading="lazy" decoding="async" width="675" height="500" />
             </div>
             <div class="p-4 d-flex flex-column flex-grow-1">
               <span class="church-badge mb-2 align-self-start">Generasi Anak</span>
-              <h4 class="fw-bold mb-2">Impact Kids</h4>
+              <h3 class="h4 fw-bold mb-2">Impact Kids</h3>
               <p class="text-secondary small flex-grow-1" style="line-height: 1.6;">
                 Pelayanan anak yang mendidik generasi penerus mencintai Firman Tuhan melalui pembelajaran interaktif dan penuh sukacita.
               </p>
@@ -233,11 +240,11 @@ try {
         <div class="col-lg-4 col-md-6">
           <div class="church-card h-100 d-flex flex-column">
             <div style="height: 200px; overflow: hidden;">
-              <img src="/assets/img/Background/christ-cc.jpg" alt="Christ Community" class="w-100 h-100" style="object-fit: cover;" />
+              <img src="/assets/img/Background/christ-cc.jpg" alt="Christ Community" class="w-100 h-100" style="object-fit: cover;" loading="lazy" decoding="async" width="600" height="400" />
             </div>
             <div class="p-4 d-flex flex-column flex-grow-1">
               <span class="church-badge mb-2 align-self-start">Komunitas Sel</span>
-              <h4 class="fw-bold mb-2">Christ Community</h4>
+              <h3 class="h4 fw-bold mb-2">Christ Community</h3>
               <p class="text-secondary small flex-grow-1" style="line-height: 1.6;">
                 Kelompok komunitas kecil yang saling mendoakan, belajar Firman, dan saling menguatkan dalam perjalanan iman sehari-hari.
               </p>
@@ -251,11 +258,11 @@ try {
         <div class="col-lg-4 col-md-6">
           <div class="church-card h-100 d-flex flex-column">
             <div style="height: 200px; overflow: hidden;">
-              <img src="/assets/img/Background/praise-and-worship.jpg" alt="Pelayanan Gereja" class="w-100 h-100" style="object-fit: cover;" />
+              <img src="/assets/img/Background/praise-and-worship.jpg" alt="Pelayanan Gereja" class="w-100 h-100" style="object-fit: cover;" loading="lazy" decoding="async" width="600" height="400" />
             </div>
             <div class="p-4 d-flex flex-column flex-grow-1">
               <span class="church-badge mb-2 align-self-start">Keterlibatan</span>
-              <h4 class="fw-bold mb-2">Divisi Pelayanan</h4>
+              <h3 class="h4 fw-bold mb-2">Divisi Pelayanan</h3>
               <p class="text-secondary small flex-grow-1" style="line-height: 1.6;">
                 Salurkan talenta Anda melalui tim Praise & Worship, Usher, Diakonia, Media Creative, dan kepengurusan ibadah raya.
               </p>
@@ -280,6 +287,10 @@ try {
               style="object-fit: cover;"
               src="/assets/img/Background/gereja-jki-ms.jpg"
               alt="Gedung Gereja JKI Mawar Saron"
+              loading="lazy"
+              decoding="async"
+              width="800"
+              height="1200"
             />
           </div>
         </div>
@@ -314,6 +325,10 @@ try {
             class="img-fluid"
             src={latestBulletin?.image || "/assets/img/Newsletter/bulletin-jki-ms.jpg"}
             alt={latestBulletin?.title || "Buletin JKI Mawar Saron"}
+            loading="lazy"
+            decoding="async"
+            width="800"
+            height="1132"
           />
         </div>
       </div>
