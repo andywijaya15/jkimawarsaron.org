@@ -17,6 +17,11 @@ assert(fs.existsSync(path.join(dist, 'keystatic/index.html')), 'dist/keystatic/i
 assert(fs.existsSync(path.join(dist, '.htaccess')), 'dist/.htaccess must exist for production Apache configuration');
 assert(fs.existsSync(path.join(dist, 'robots.txt')), 'dist/robots.txt must exist for SEO indexing');
 assert(fs.existsSync(path.join(dist, 'sitemap-index.xml')), 'dist/sitemap-index.xml must exist for SEO indexing');
+assert(fs.existsSync(path.join(dist, 'deploy-webhook.php')), 'dist/deploy-webhook.php must exist for auto-pull webhook');
+
+const webhookPhp = fs.readFileSync(path.join(dist, 'deploy-webhook.php'), 'utf-8');
+assert(webhookPhp.includes('jkims_deploy_9f2a71d8e4c3b5'), 'deploy-webhook.php must contain deploy token check');
+assert(webhookPhp.includes('git reset --hard origin/deploy'), 'deploy-webhook.php must trigger git sync');
 
 const robotsTxt = fs.readFileSync(path.join(dist, 'robots.txt'), 'utf-8');
 assert(robotsTxt.includes('Sitemap: https://jkimawarsaron.org/sitemap-index.xml'), 'robots.txt must point to sitemap-index.xml');

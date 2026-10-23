@@ -50,3 +50,14 @@ jobs:
           git add -A
           git commit -m "deploy: static build from commit ${GITHUB_SHA::8}"
           git push --force "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" deploy
+
+      - name: Trigger Auto Git Pull di Hostinger via Webhook
+        run: |
+          echo "Memanggil Webhook auto-pull di Hostinger..."
+          RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}" -X POST \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_WEBHOOK_TOKEN || 'jkims_deploy_9f2a71d8e4c3b5' }}" \
+            "https://jkimawarsaron.org/deploy-webhook.php")
+          HTTP_BODY=$(echo "$RESPONSE" | sed -e '$d')
+          HTTP_STATUS=$(echo "$RESPONSE" | tail -n1 | cut -d':' -f2)
+          echo "Status: $HTTP_STATUS"
+          echo "Response: $HTTP_BODY"

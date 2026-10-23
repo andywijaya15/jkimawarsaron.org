@@ -20,6 +20,11 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+
+  # Protect .git directory from web access
+  RewriteRule ^\.git - [F,L]
+
+  # Keystatic SPA rewrite
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteRule ^keystatic(/.*)?$ keystatic/index.html [L,QSA]
 </IfModule>
