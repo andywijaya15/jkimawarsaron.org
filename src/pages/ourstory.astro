@@ -1,5 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import defaultVisionMission from '../content/settings/vision-mission.json';
+
+const visionMission = defaultVisionMission;
 ---
 
 <Layout title="Our Story - JKI MAWAR SARON" currentPage="ourstory">
@@ -62,18 +65,18 @@ import Layout from '../layouts/Layout.astro';
       <div class="col-md-6">
         <div class="church-card p-4 p-lg-5 h-100">
           <span class="church-badge mb-2">Visi Kami</span>
-          <h2 class="h4 fw-bold mb-3">Kehadiran Kerajaan Allah</h2>
+          <h2 class="h4 fw-bold mb-3">{visionMission.visionTitle}</h2>
           <p class="text-secondary mb-0" style="line-height: 1.7;">
-            Gereja lokal yang menghadirkan kemuliaan, kasih, dan kuasa Kerajaan Allah yang seutuhnya di luar empat dinding gereja.
+            {visionMission.visionDescription}
           </p>
         </div>
       </div>
       <div class="col-md-6">
         <div class="church-card p-4 p-lg-5 h-100">
           <span class="church-badge mb-2">Misi Kami</span>
-          <h2 class="h4 fw-bold mb-3">Pemuridan dan Kepemimpinan</h2>
+          <h2 class="h4 fw-bold mb-3">{visionMission.missionTitle}</h2>
           <p class="text-secondary mb-0" style="line-height: 1.7;">
-            Membangun kehidupan jemaat yang solid dalam Kristus dan memperbanyak pemimpin yang hidup dalam keteladanan.
+            {visionMission.missionDescription}
           </p>
         </div>
       </div>

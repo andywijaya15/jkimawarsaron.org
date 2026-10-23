@@ -1,4 +1,4 @@
-import { config, fields, collection } from '@keystatic/core';
+import { config, fields, collection, singleton } from '@keystatic/core';
 
 export default config({
   storage: import.meta.env.DEV
@@ -66,6 +66,49 @@ export default config({
         youtubeId: fields.text({ label: 'ID Video YouTube (misal: 4tqfQkWYaeg)' }),
         series: fields.text({ label: 'Nama Seri Khotbah' }),
         content: fields.markdoc({ label: 'Ringkasan Firman' }),
+      },
+    }),
+  },
+  singletons: {
+    schedule: singleton({
+      label: 'Jadwal Ibadah',
+      path: 'src/content/settings/schedule',
+      format: { data: 'json' },
+      schema: {
+        services: fields.array(
+          fields.object({
+            category: fields.text({ label: 'Kategori (misal: Ibadah Raya)' }),
+            name: fields.text({ label: 'Nama Ibadah (misal: Sunday Service)' }),
+            time: fields.text({ label: 'Waktu (misal: Minggu 09.00 WIB)' }),
+          }),
+          {
+            label: 'Daftar Jadwal Ibadah',
+            itemLabel: (props) => `${props.fields.category.value || ''} - ${props.fields.name.value || ''} (${props.fields.time.value || ''})`,
+          }
+        ),
+        locationUrl: fields.text({
+          label: 'URL Google Maps Lokasi',
+          defaultValue: 'https://maps.app.goo.gl/zfCuDaWoGZLhA4Jz9',
+        }),
+      },
+    }),
+    visionMission: singleton({
+      label: 'Visi & Misi',
+      path: 'src/content/settings/vision-mission',
+      format: { data: 'json' },
+      schema: {
+        visionTitle: fields.text({ label: 'Judul Visi', defaultValue: 'Gereja yang Hadir untuk Kota dan Bangsa' }),
+        visionDescription: fields.text({
+          label: 'Deskripsi Visi',
+          multiline: true,
+          defaultValue: 'Gereja lokal yang menghadirkan kemuliaan, kasih, dan kuasa Kerajaan Allah yang seutuhnya di luar empat dinding gereja.',
+        }),
+        missionTitle: fields.text({ label: 'Judul Misi', defaultValue: 'Pertumbuhan Rohani & Kepemimpinan' }),
+        missionDescription: fields.text({
+          label: 'Deskripsi Misi',
+          multiline: true,
+          defaultValue: 'Membangun kehidupan jemaat yang solid dalam Kristus dan memperbanyak pemimpin-pemimpin yang melayani dengan integritas.',
+        }),
       },
     }),
   },

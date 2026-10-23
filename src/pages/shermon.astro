@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content';
 
 const allSermons = await getCollection('sermons');
 const featuredSermon = allSermons[0];
+const archiveSermons = allSermons.slice(1);
 ---
 
 <Layout title="Khotbah & Media - JKI MAWAR SARON" currentPage="shermon">
@@ -68,41 +69,33 @@ const featuredSermon = allSermons[0];
     <!-- Sermon Archive Cards -->
     <h2 class="h3 fw-bold mb-4" style="font-size: 1.6rem;">Arsip Seri Khotbah</h2>
     <div class="row g-4 mb-5">
-      <div class="col-md-6">
-        <div class="church-card h-100 p-4 d-flex flex-column">
-          <span class="church-badge mb-2 align-self-start">Seri Pemuridan</span>
-          <h3 class="h4 fw-bold mb-2">Kerajaan Allah di Luar Empat Dinding</h3>
-          <p class="text-secondary small flex-grow-1" style="line-height: 1.6;">
-            Bagaimana gereja lokal menjadi garam dan terang yang nyata bagi kota Semarang melalui kasih, integritas, dan perbuatan baik sehari-hari.
-          </p>
-          <a
-            href="https://www.youtube.com/@JKIMawarSaronSemarang/videos"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn-church-outline mt-3"
-          >
-            Tonton Arsip Video
-          </a>
+      {archiveSermons.map((sermon) => (
+        <div class="col-md-6">
+          <div class="church-card h-100 p-4 d-flex flex-column">
+            {sermon.data.series && (
+              <span class="church-badge mb-2 align-self-start">{sermon.data.series}</span>
+            )}
+            <h3 class="h4 fw-bold mb-2">{sermon.data.title}</h3>
+            {sermon.data.speaker && (
+              <p class="text-muted small mb-2">
+                <i class="fas fa-user-tie me-1"></i> {sermon.data.speaker}
+                {sermon.data.passage ? ` • ${sermon.data.passage}` : ''}
+              </p>
+            )}
+            <p class="text-secondary small flex-grow-1" style="line-height: 1.6;">
+              {sermon.body?.trim() || "Dengarkan pesan Firman Tuhan yang menguatkan dan membangun iman kita."}
+            </p>
+            <a
+              href={sermon.data.youtubeId ? `https://www.youtube.com/watch?v=${sermon.data.youtubeId}` : "https://www.youtube.com/@JKIMawarSaronSemarang/videos"}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-church-outline mt-3 align-self-start"
+            >
+              <i class="fab fa-youtube me-1"></i> Tonton Khotbah
+            </a>
+          </div>
         </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="church-card h-100 p-4 d-flex flex-column">
-          <span class="church-badge mb-2 align-self-start">Seri Kehidupan Keluarga</span>
-          <h3 class="h4 fw-bold mb-2">Membangun Rumah Tangga yang Solid</h3>
-          <p class="text-secondary small flex-grow-1" style="line-height: 1.6;">
-            Prinsip-prinsip alkitabiah dalam membesarkan anak, memelihara keharmonisan pernikahan, dan menghadirkan damai Kristus di tengah keluarga.
-          </p>
-          <a
-            href="https://www.youtube.com/@JKIMawarSaronSemarang/videos"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn-church-outline mt-3"
-          >
-            Tonton Arsip Video
-          </a>
-        </div>
-      </div>
+      ))}
     </div>
 
     <!-- YouTube Banner Callout -->

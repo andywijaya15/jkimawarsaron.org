@@ -4,8 +4,20 @@ import LiveButton from '../components/LiveButton.astro';
 import ContactSection from '../components/ContactSection.astro';
 import { getCollection } from 'astro:content';
 
+import defaultSchedule from '../content/settings/schedule.json';
+import defaultVisionMission from '../content/settings/vision-mission.json';
+
 const bulletins = await getCollection('bulletin');
 const latestBulletin = bulletins[0]?.data;
+
+const allSermons = await getCollection('sermons');
+const latestSermon = allSermons[0];
+
+const allEvents = await getCollection('events');
+const upcomingEvents = allEvents.slice(0, 3);
+
+const schedule = defaultSchedule;
+const visionMission = defaultVisionMission;
 
 // Fallback data siaran ibadah/khotbah terbaru JKI Mawar Saron Semarang
 let latestVideo = {
@@ -120,23 +132,15 @@ try {
     <div class="container px-4 px-lg-5">
       <div class="service-bar">
         <div class="row g-3 align-items-center text-center text-lg-start">
-          <div class="col-lg-3 col-md-6 service-item">
-            <span class="text-uppercase small fw-bold text-muted d-block">Ibadah Raya</span>
-            <span class="fs-5 fw-bold text-dark d-block">Sunday Service</span>
-            <span class="text-secondary small"><i class="far fa-clock text-warning me-1"></i> Minggu 09.00 WIB</span>
-          </div>
-          <div class="col-lg-3 col-md-6 service-item">
-            <span class="text-uppercase small fw-bold text-muted d-block">Sekolah Minggu</span>
-            <span class="fs-5 fw-bold text-dark d-block">Impact Kids</span>
-            <span class="text-secondary small"><i class="far fa-clock text-warning me-1"></i> Minggu 09.00 WIB</span>
-          </div>
-          <div class="col-lg-3 col-md-6 service-item">
-            <span class="text-uppercase small fw-bold text-muted d-block">Pemuda & Remaja</span>
-            <span class="fs-5 fw-bold text-dark d-block">Youth Impact</span>
-            <span class="text-secondary small"><i class="far fa-clock text-warning me-1"></i> Minggu 11.00 WIB</span>
-          </div>
+          {schedule.services.map((item) => (
+            <div class="col-lg-3 col-md-6 service-item">
+              <span class="text-uppercase small fw-bold text-muted d-block">{item.category}</span>
+              <span class="fs-5 fw-bold text-dark d-block">{item.name}</span>
+              <span class="text-secondary small"><i class="far fa-clock text-warning me-1"></i> {item.time}</span>
+            </div>
+          ))}
           <div class="col-lg-3 col-md-6 text-center text-lg-end">
-            <a href="https://maps.app.goo.gl/zfCuDaWoGZLhA4Jz9" target="_blank" rel="noopener noreferrer" class="btn-church-outline w-100">
+            <a href={schedule.locationUrl || "https://maps.app.goo.gl/zfCuDaWoGZLhA4Jz9"} target="_blank" rel="noopener noreferrer" class="btn-church-outline w-100">
               <i class="fas fa-map-marker-alt me-1"></i> Lokasi Ibadah
             </a>
           </div>
@@ -152,18 +156,18 @@ try {
         <div class="col-md-6">
           <div class="church-card p-4 p-lg-5 h-100">
             <span class="church-badge mb-3">Visi Kami</span>
-            <h2 class="h4 fw-bold mb-3">Gereja yang Hadir untuk Kota dan Bangsa</h2>
+            <h2 class="h4 fw-bold mb-3">{visionMission.visionTitle}</h2>
             <p class="text-secondary mb-0" style="line-height: 1.7;">
-              Gereja lokal yang menghadirkan kemuliaan, kasih, dan kuasa Kerajaan Allah yang seutuhnya di luar empat dinding gereja.
+              {visionMission.visionDescription}
             </p>
           </div>
         </div>
         <div class="col-md-6">
           <div class="church-card p-4 p-lg-5 h-100">
             <span class="church-badge mb-3">Misi Kami</span>
-            <h2 class="h4 fw-bold mb-3">Pertumbuhan Rohani & Kepemimpinan</h2>
+            <h2 class="h4 fw-bold mb-3">{visionMission.missionTitle}</h2>
             <p class="text-secondary mb-0" style="line-height: 1.7;">
-              Membangun kehidupan jemaat yang solid dalam Kristus dan memperbanyak pemimpin-pemimpin yang melayani dengan integritas.
+              {visionMission.missionDescription}
             </p>
           </div>
         </div>
@@ -181,8 +185,8 @@ try {
               <img
                 class="img-fluid w-100 h-100"
                 style="object-fit: cover;"
-                src="/assets/img/Background/Alkitab2.jpeg"
-                alt="Alkitab Firman Tuhan"
+                src={latestSermon?.data.image || "/assets/img/Background/Alkitab2.jpeg"}
+                alt={latestSermon?.data.title || "Alkitab Firman Tuhan"}
                 loading="lazy"
                 decoding="async"
                 width="640"
@@ -191,23 +195,91 @@ try {
             </div>
           </div>
           <div class="col-lg-7">
-            <span class="church-badge mb-2">Ayat Minggu Ini</span>
+            <span class="church-badge mb-2">{latestSermon?.data.series || "Renungan Mingguan"}</span>
             <blockquote class="fs-4 fw-semibold text-dark my-3" style="font-family: var(--font-heading); line-height: 1.4;">
-              "Karena begitu besar kasih Allah akan dunia ini, sehingga Ia telah mengaruniakan Anak-Nya yang tunggal, supaya setiap orang yang percaya kepada-Nya tidak binasa, melainkan beroleh hidup yang kekal."
+              "{latestSermon?.data.title || "Survival Mode: Kuasa Iman Menembus Badai"}"
             </blockquote>
-            <p class="text-muted fw-bold mb-3">Yohanes 3:16</p>
+            {latestSermon?.data.passage && (
+              <p class="text-muted fw-bold mb-3">{latestSermon.data.passage} {latestSermon.data.speaker ? `• ${latestSermon.data.speaker}` : ''}</p>
+            )}
             <p class="text-secondary mb-4" style="line-height: 1.7;">
-              Kasih Allah yang sejati tidak tinggal diam di kejauhan, melainkan mewujud nyata dalam pengorbanan Yesus Kristus. Mari hidup saling mengasihi dan menjadi saluran kasih-Nya bagi keluarga dan kota kita.
+              {latestSermon?.body?.trim() || "Kasih Allah yang sejati tidak tinggal diam di kejauhan, melainkan mewujud nyata dalam pengorbanan Yesus Kristus. Mari hidup saling mengasihi dan menjadi saluran kasih-Nya bagi keluarga dan kota kita."}
             </p>
-            <a href="/shermon" class="btn-church-outline">
-              <i class="fas fa-book-open me-1"></i>
-              Lihat Seri Khotbah Lengkap
-            </a>
+            <div class="d-flex flex-wrap gap-3">
+              <a href="/shermon" class="btn-church-outline">
+                <i class="fas fa-book-open me-1"></i>
+                Lihat Seri Khotbah Lengkap
+              </a>
+              {latestSermon?.data.youtubeId && (
+                <a
+                  href={`https://www.youtube.com/watch?v=${latestSermon.data.youtubeId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-church-primary"
+                >
+                  <i class="fab fa-youtube me-1"></i> Tonton di YouTube
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Upcoming Events Showcase (dari CMS) -->
+  {upcomingEvents.length > 0 && (
+    <section class="py-5" style="background-color: var(--color-surface); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+      <div class="container px-4 px-lg-5">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4 gap-3">
+          <div>
+            <span class="church-badge mb-2">Agenda Gereja</span>
+            <h2 class="fw-bold mb-1" style="font-size: 2.2rem;">Kegiatan & Acara Mendatang</h2>
+            <p class="text-secondary mb-0">Mari bergabung dan alami persekutuan yang memberkati.</p>
+          </div>
+          <a href="/events" class="btn-church-outline align-self-start align-self-md-auto">
+            Lihat Semua Acara <i class="fas fa-arrow-right ms-1"></i>
+          </a>
+        </div>
+
+        <div class="row g-4">
+          {upcomingEvents.map((event) => (
+            <div class="col-lg-4 col-md-6">
+              <div class="church-card h-100 d-flex flex-column">
+                <div style="height: 200px; overflow: hidden;" class="position-relative">
+                  <img
+                    src={event.data.image || "/assets/img/Events/revival.jpg"}
+                    alt={event.data.title}
+                    class="w-100 h-100"
+                    style="object-fit: cover;"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  {event.data.category && (
+                    <span class="position-absolute top-0 start-0 m-3 badge rounded-pill" style="background: rgba(20, 25, 31, 0.85); color: #FFF; font-weight: 500;">
+                      {event.data.category}
+                    </span>
+                  )}
+                </div>
+                <div class="p-4 d-flex flex-column flex-grow-1">
+                  <span class="text-warning small fw-bold mb-1">
+                    <i class="far fa-calendar-alt me-1"></i> {event.data.date}
+                  </span>
+                  <h3 class="h5 fw-bold mb-2">{event.data.title}</h3>
+                  <p class="text-secondary small flex-grow-1" style="line-height: 1.6;">
+                    {event.body?.trim()}
+                  </p>
+                  <a href={event.data.actionUrl || "/events"} class="btn-church-outline mt-3">
+                    {event.data.actionText || "Informasi Acara"}
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- Community & Ministry Showcase -->
   <section class="py-5">
@@ -320,7 +392,7 @@ try {
         <p class="text-secondary mx-auto mb-4" style="max-width: 600px;">
           Dapatkan ringkasan khotbah mingguan, agenda kegiatan doa, jadwal pelayanan jemaat, dan warta keuangan gereja melalui buletin kami.
         </p>
-        <div class="d-inline-block rounded-4 overflow-hidden shadow-sm" style="max-width: 720px; border: 1px solid var(--color-border);">
+        <div class="d-inline-block rounded-4 overflow-hidden shadow-sm mb-4" style="max-width: 720px; border: 1px solid var(--color-border);">
           <img
             class="img-fluid"
             src={latestBulletin?.image || "/assets/img/Newsletter/bulletin-jki-ms.jpg"}
@@ -330,6 +402,11 @@ try {
             width="800"
             height="1132"
           />
+        </div>
+        <div>
+          <a href="/bulletin" class="btn-church-primary">
+            <i class="fas fa-newspaper me-1"></i> Lihat Arsip & Unduh Buletin
+          </a>
         </div>
       </div>
     </div>

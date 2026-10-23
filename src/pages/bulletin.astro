@@ -1,0 +1,106 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allBulletins = await getCollection('bulletin');
+const latestBulletin = allBulletins[0];
+const pastBulletins = allBulletins.slice(1);
+---
+
+<Layout title="Warta Jemaat - JKI MAWAR SARON" currentPage="bulletin">
+  <section class="page-header text-center">
+    <div class="container px-4 px-lg-5">
+      <span class="church-badge mb-3">Newsletter & Updates</span>
+      <h1 class="display-5 fw-bold mb-3">Warta Jemaat & Buletin</h1>
+      <p class="lead text-secondary mx-auto" style="max-width: 680px;">
+        Temukan informasi kegiatan jemaat, ringkasan khotbah mingguan, pokok doa syafaat, dan warta keuangan gereja.
+      </p>
+    </div>
+  </section>
+
+  <div class="container px-4 px-lg-5 my-5">
+    {latestBulletin && (
+      <div class="church-card p-4 p-lg-5 mb-5">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-5 text-center">
+            <div class="rounded-4 overflow-hidden shadow-sm mx-auto" style="max-width: 380px; border: 1px solid var(--color-border);">
+              <img
+                src={latestBulletin.data.image || "/assets/img/Newsletter/bulletin-jki-ms.jpg"}
+                alt={latestBulletin.data.title}
+                class="img-fluid w-100"
+                style="object-fit: cover;"
+              />
+            </div>
+          </div>
+          <div class="col-lg-7">
+            <span class="church-badge mb-2">Edisi Terbaru: {latestBulletin.data.date}</span>
+            <h2 class="h3 fw-bold mb-2">{latestBulletin.data.title}</h2>
+            {latestBulletin.data.theme && (
+              <p class="text-warning fw-bold small mb-3">
+                <i class="fas fa-bookmark me-1"></i> Tema: "{latestBulletin.data.theme}"
+              </p>
+            )}
+            <p class="text-secondary mb-4" style="line-height: 1.7;">
+              {latestBulletin.body?.trim() || "Dapatkan informasi lengkap mengenai kegiatan ibadah raya, persekutuan komunitas, permohonan doa, dan laporan pelayanan kasih gereja melalui edisi warta ini."}
+            </p>
+            <div class="d-flex flex-wrap gap-3">
+              <a
+                href={latestBulletin.data.fileUrl || latestBulletin.data.image || "/assets/img/Newsletter/bulletin-jki-ms.jpg"}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-church-primary"
+              >
+                <i class="fas fa-file-download me-1"></i>
+                Buka / Unduh Buletin
+              </a>
+              <a href="/" class="btn-church-outline">
+                <i class="fas fa-arrow-left me-1"></i>
+                Kembali ke Beranda
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    )}
+
+    {pastBulletins.length > 0 && (
+      <div>
+        <h2 class="h4 fw-bold mb-4">Arsip Edisi Sebelumnya</h2>
+        <div class="row g-4">
+          {pastBulletins.map((bulletin) => (
+            <div class="col-md-6 col-lg-4">
+              <div class="church-card h-100 p-4 d-flex flex-column">
+                <div class="rounded-3 overflow-hidden mb-3" style="height: 220px; border: 1px solid var(--color-border);">
+                  <img
+                    src={bulletin.data.image || "/assets/img/Newsletter/bulletin-jki-ms.jpg"}
+                    alt={bulletin.data.title}
+                    class="w-100 h-100"
+                    style="object-fit: cover;"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <span class="text-muted small mb-1">{bulletin.data.date}</span>
+                <h3 class="h5 fw-bold mb-2">{bulletin.data.title}</h3>
+                {bulletin.data.theme && (
+                  <p class="text-warning small fw-bold mb-2">Tema: {bulletin.data.theme}</p>
+                )}
+                <p class="text-secondary small flex-grow-1" style="line-height: 1.6;">
+                  {bulletin.body?.trim()}
+                </p>
+                <a
+                  href={bulletin.data.fileUrl || bulletin.data.image || "/assets/img/Newsletter/bulletin-jki-ms.jpg"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-church-outline mt-3 align-self-start"
+                >
+                  <i class="fas fa-download me-1"></i> Unduh
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+</Layout>

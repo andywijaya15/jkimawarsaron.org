@@ -11,6 +11,7 @@ assert(fs.existsSync(path.join(dist, 'ministry/index.html')), 'dist/ministry/ind
 assert(fs.existsSync(path.join(dist, 'christ-community/index.html')), 'dist/christ-community/index.html must exist');
 assert(fs.existsSync(path.join(dist, 'shermon/index.html')), 'dist/shermon/index.html must exist');
 assert(fs.existsSync(path.join(dist, 'events/index.html')), 'dist/events/index.html must exist');
+assert(fs.existsSync(path.join(dist, 'bulletin/index.html')), 'dist/bulletin/index.html must exist');
 assert(fs.existsSync(path.join(dist, 'admin/index.html')), 'dist/admin/index.html must exist for CMS');
 assert(fs.existsSync(path.join(dist, 'admin/config.yml')), 'dist/admin/config.yml must exist for CMS');
 assert(fs.existsSync(path.join(dist, 'keystatic/index.html')), 'dist/keystatic/index.html must exist for Keystatic CMS');
@@ -53,6 +54,18 @@ assert(indexHtml.includes('application/ld+json'), 'index.html must include Schem
 assert(indexHtml.includes('"@type":"Church"'), 'index.html must contain Church schema');
 assert(indexHtml.includes('id="main-content"'), 'index.html must have main landmark for accessibility');
 assert(indexHtml.includes('Lewati ke konten utama'), 'index.html must have skip link');
+assert(indexHtml.includes('Sunday Service'), 'index.html must display Sunday Service schedule');
+assert(indexHtml.includes('Impact Kids'), 'index.html must display Impact Kids schedule');
+assert(indexHtml.includes('Youth Impact'), 'index.html must display Youth Impact schedule');
+assert(indexHtml.includes('Kegiatan & Acara Mendatang'), 'index.html must display upcoming events showcase');
+
+const bulletinHtml = fs.readFileSync(path.join(dist, 'bulletin/index.html'), 'utf-8');
+assert(bulletinHtml.includes('Warta Jemaat & Buletin'), 'bulletin/index.html must contain page header');
+assert(bulletinHtml.includes('Buletin Warta Jemaat JKI Mawar Saron'), 'bulletin/index.html must render bulletin from CMS');
+
+const shermonHtml = fs.readFileSync(path.join(dist, 'shermon/index.html'), 'utf-8');
+assert(shermonHtml.includes('Survival Mode'), 'shermon/index.html must display featured sermon');
+assert(shermonHtml.includes('Kerajaan Allah di Luar Empat Dinding'), 'shermon/index.html must display archive sermon from CMS');
 
 const ourstoryHtml = fs.readFileSync(path.join(dist, 'ourstory/index.html'), 'utf-8');
 assert(ourstoryHtml.includes('object-position: center 45%'), 'ourstory should have framing object-position: center 45%');

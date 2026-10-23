@@ -1,5 +1,8 @@
 ---
+import defaultSchedule from '../content/settings/schedule.json';
+
 const currentYear = new Date().getFullYear();
+const schedule = defaultSchedule;
 ---
 
 <footer class="church-footer py-5 mt-5">
@@ -34,9 +37,9 @@ const currentYear = new Date().getFullYear();
       <div class="col-lg-3 col-md-6">
         <p class="h6 text-white text-uppercase fw-bold mb-3" style="letter-spacing: 0.05em;">Jadwal Ibadah</p>
         <ul class="list-unstyled small text-secondary mb-0" style="line-height: 2;">
-          <li><strong class="text-white">Sunday Service:</strong> Minggu 09.00 WIB</li>
-          <li><strong class="text-white">Impact Kids:</strong> Minggu 09.00 WIB</li>
-          <li><strong class="text-white">Youth Impact:</strong> Minggu 11.00 WIB</li>
+          {schedule.services.map((item) => (
+            <li><strong class="text-white">{item.name}:</strong> {item.time}</li>
+          ))}
           <li><strong class="text-white">Doa Bersama:</strong> Sesuai jadwal komunitas</li>
         </ul>
       </div>
@@ -49,6 +52,7 @@ const currentYear = new Date().getFullYear();
           <li><a href="/christ-community">Christ Community</a></li>
           <li><a href="/shermon">Khotbah & Media</a></li>
           <li><a href="/events">Agenda Acara</a></li>
+          <li><a href="/bulletin">Warta Jemaat</a></li>
         </ul>
       </div>
 

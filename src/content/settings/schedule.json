@@ -1,0 +1,20 @@
+{
+  "services": [
+    {
+      "category": "Ibadah Raya",
+      "name": "Sunday Service",
+      "time": "Minggu 09.00 WIB"
+    },
+    {
+      "category": "Sekolah Minggu",
+      "name": "Impact Kids",
+      "time": "Minggu 09.00 WIB"
+    },
+    {
+      "category": "Pemuda & Remaja",
+      "name": "Youth Impact",
+      "time": "Minggu 11.00 WIB"
+    }
+  ],
+  "locationUrl": "https://maps.app.goo.gl/zfCuDaWoGZLhA4Jz9"
+}
