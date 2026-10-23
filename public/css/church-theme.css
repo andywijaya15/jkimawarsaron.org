@@ -6,6 +6,7 @@
   --color-slate: #64748B;
   --color-accent: #C88A3E;
   --color-accent-hover: #B4752E;
+  --color-accent-text: #9A580A; /* WCAG AA: 5.29:1 contrast ratio against light backgrounds */
   --color-sage: #4A6B5D;
   --color-border: #E8E4DC;
 
@@ -51,13 +52,31 @@ p {
 }
 
 a {
-  color: var(--color-accent);
+  color: var(--color-accent-text);
   text-decoration: none;
   transition: color 0.2s ease, opacity 0.2s ease;
 }
 
 a:hover {
   color: var(--color-accent-hover);
+}
+
+/* High contrast overrides for WCAG AA compliance (>= 4.5:1) */
+.text-muted {
+  color: #556272 !important;
+}
+
+.text-secondary {
+  color: #475569 !important;
+}
+
+.text-warning {
+  color: var(--color-accent-text) !important;
+}
+
+.church-hero .text-warning,
+.church-footer .text-warning {
+  color: #FBBF24 !important;
 }
 
 /* Focus indicator for keyboard accessibility (R-32) */
@@ -94,12 +113,12 @@ input:focus-visible {
 }
 
 #mainNav .nav-link:hover {
-  color: var(--color-accent) !important;
+  color: var(--color-accent-text) !important;
   background-color: rgba(200, 138, 62, 0.08);
 }
 
 #mainNav .nav-link.active {
-  color: var(--color-accent) !important;
+  color: var(--color-accent-text) !important;
   background-color: rgba(200, 138, 62, 0.12);
   border-bottom: none !important;
 }
@@ -116,13 +135,13 @@ input:focus-visible {
 }
 
 #mainNav.navbar-shrink .nav-link:hover {
-  color: var(--color-accent) !important;
+  color: var(--color-accent-text) !important;
   background-color: rgba(200, 138, 62, 0.08) !important;
   border-bottom: none !important;
 }
 
 #mainNav.navbar-shrink .nav-link.active {
-  color: var(--color-accent) !important;
+  color: var(--color-accent-text) !important;
   background-color: rgba(200, 138, 62, 0.12) !important;
   border-bottom: none !important;
   outline: none !important;
@@ -197,8 +216,8 @@ input:focus-visible {
 
 .btn-church-outline:hover {
   background-color: var(--color-surface);
-  border-color: var(--color-accent);
-  color: var(--color-accent) !important;
+  border-color: var(--color-accent-text);
+  color: var(--color-accent-text) !important;
   transform: translateY(-1px);
 }
 
@@ -253,7 +272,7 @@ input:focus-visible {
   padding: 0.35rem 0.85rem;
   border-radius: var(--radius-pill);
   background-color: rgba(200, 138, 62, 0.12);
-  color: var(--color-accent);
+  color: var(--color-accent-text);
 }
 
 /* Page Hero Masthead */
